@@ -28,7 +28,7 @@ namespace server.Services
         public User Authenticate(string username, string password)
         {
 
-            var user = _context.Users.SingleOrDefault(user => user.Username == username && user.Password == password);
+            var user = _context.Users.SingleOrDefault(user => user.Username == username);
             if (user == null) return null;
 
             if (!VerifyPasswordHash(password, user.Password)){
@@ -44,17 +44,11 @@ namespace server.Services
         }
         private static string CreatePasswordHash(string password)
         {
-            var sha1 = new SHA1CryptoServiceProvider();
-            byte[] data = Encoding.ASCII.GetBytes(password);
-            var hashed = sha1.ComputeHash(data);
-            string hashedPassword = hashed.ToString();
-            return hashedPassword;
+            return BCrypt.Net.BCrypt.HashPassword(password);
         }
         private static bool VerifyPasswordHash(string password, string storedHash)
         {
-            string hashedPassword = CreatePasswordHash(password);
-            if (hashedPassword == storedHash) return true;
-            return false;
+            return BCrypt.Net.BCrypt.Verify(password, storedHash);
         }
 
         public async Task<User> Create(User User, string Password)

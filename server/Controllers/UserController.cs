@@ -22,10 +22,10 @@ namespace server.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserService _userService;
+        private IUserService _userService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
-        public UserController(UserService service, IMapper mapper , IOptions<AppSettings> appSettings)
+        public UserController(IUserService service, IMapper mapper , IOptions<AppSettings> appSettings)
         {
             _userService = service;
             _mapper = mapper;
@@ -36,13 +36,9 @@ namespace server.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(long id)
         {
-            var item = await _userService.GetById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-
-            return item;
+            var user = await _userService.GetById(id);
+            var model = _mapper.Map<User>(user);
+            return Ok(model);
         }
 
         [AllowAnonymous]
@@ -95,19 +91,28 @@ namespace server.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("profile")]
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateProfile(long id, [FromBody] UpdateModel model)
+        {
+            var user = _mapper.Map<User>(model);
+            user.UserId = id;
+            try
+            {
+                _userService.Update(user, model.Password);
+                return Ok();
+            }catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
 
         [HttpGet]
         public IActionResult GetAll()
         {
             var users = _userService.GetAll();
             var model = _mapper.Map<IList<User>>(users);
-            return Ok(model);
-        }
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
-        {
-            var user = _userService.GetById(id);
-            var model = _mapper.Map<User>(user);
             return Ok(model);
         }
         [HttpDelete("{id}")]
