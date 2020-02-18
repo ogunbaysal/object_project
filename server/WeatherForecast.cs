@@ -1,6 +1,6 @@
 using System;
 
-namespace server
+namespace serber
 {
     public class WeatherForecast
     {
