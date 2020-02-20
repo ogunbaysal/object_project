@@ -18,7 +18,6 @@ namespace server.Models.Category
         [Required(ErrorMessage = "Slug is required")]
         public string Slug { get; set; }
         public CategoryStatus Status { get; set; }
-        public Category? Parent { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateMofied { get; set; }
     }

@@ -96,7 +96,7 @@ namespace server.Controllers
         [HttpGet("profile")]
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateProfile(long id, [FromBody] UpdateModel model)
+        public IActionResult UpdateProfile(long id, [FromBody] UpdateModel model)
         {
             var user = _mapper.Map<User>(model);
             user.UserId = id;
@@ -104,7 +104,8 @@ namespace server.Controllers
             {
                 _userService.Update(user, model.Password);
                 return Ok();
-            }catch(AppException ex)
+            }
+            catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
