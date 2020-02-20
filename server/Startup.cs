@@ -18,6 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using server.Helpers;
 using server.Models.User;
 using server.Services;
+using server.Models.Category;
 
 namespace serber
 {
@@ -36,8 +37,8 @@ namespace serber
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<UserContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:apidb"]));
-        
+            services.AddDbContext<ModelContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:apidb"]));
+
             services.AddControllers();
             services.AddCors();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -80,11 +81,12 @@ namespace serber
                     };
                 });
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context)
         {
             if (env.IsDevelopment())
             {

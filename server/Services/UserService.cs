@@ -20,8 +20,8 @@ namespace server.Services
     }
     public class UserService : IUserService
     {
-        private readonly UserContext _context;
-        public UserService(UserContext context)
+        private readonly ModelContext _context;
+        public UserService(ModelContext context)
         {
             _context = context;
         }
