@@ -48,25 +48,10 @@ namespace server.Controllers
         public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             var user = _userService.Authenticate(model.Username, model.Password);
-            if(user == null)
+            if (user == null)
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Name, user.UserId.ToString())
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-
             // return basic user info and authentication token
             return Ok(new
             {
@@ -75,7 +60,7 @@ namespace server.Controllers
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 Email = user.Email,
-                Token = tokenString
+                Token = user.Token
             });
         }
 
@@ -95,8 +80,25 @@ namespace server.Controllers
         }
         [HttpGet("profile")]
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateProfile(long id, [FromBody] UpdateModel model)
+        [HttpPut("profile")]
+        public IActionResult UpdateProfile([FromBody] UpdateModel model)
+        {
+            var user = _mapper.Map<User>(model);
+            user.UserId = Convert.ToInt32(HttpContext.User.Claims.First(x => x.Type == "Id").Value);
+            try
+            {
+                _userService.Update(user, model.Password);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpPut("update/{id}")]
+        public IActionResult UpdateUser(long id, [FromBody] UpdateModel model)
         {
             var user = _mapper.Map<User>(model);
             user.UserId = id;
@@ -110,14 +112,15 @@ namespace server.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-        [HttpGet]
+        [Authorize(Roles = Role.Admin)]
+        [HttpGet("all")]
         public IActionResult GetAll()
         {
             var users = _userService.GetAll();
             var model = _mapper.Map<IList<User>>(users);
             return Ok(model);
         }
+        [Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

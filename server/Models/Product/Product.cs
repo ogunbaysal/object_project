@@ -1,4 +1,6 @@
-﻿using System;
+﻿using server.Models.CrossTable;
+using server.Models.ProductProperty;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,9 +24,19 @@ namespace server.Models.Product
 
         [Required(ErrorMessage = "Price is required")]
         public float Price { get; set; }
-        public ICollection<ProductSize> ProductSizes { get; set; }
-        public ICollection<ProductImage> ProductImages { get; set; }
-        public ICollection<ProductColor> ProductColors { get; set; }
+
+        #region many -> many
+        public virtual ICollection<ProductProductSize> ProductSizes { get; set; }
+        public virtual ICollection<ProductProductColor> ProductColors { get; set; }
+        public virtual ICollection<ProductProductTheme> ProductThemes { get; set; }
+        public virtual ICollection<ProductProductHeight> ProductHeights { get; set; } 
+        public virtual ICollection<ProductProductTrotter> ProductTrotters { get; set; }
+        #endregion
+
+        #region many -> one
+        public virtual ICollection<ProductImage> ProductImages { get; set; }
+
+        #endregion
         [Required(ErrorMessage = "Product count is required")]
         public int StockCount { get; set; }
         public DateTime DateAdded { get; set; }

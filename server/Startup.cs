@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +19,7 @@ using server.Helpers;
 using server.Models.User;
 using server.Services;
 using server.Models.Category;
+using Microsoft.AspNetCore.Identity;
 
 namespace serber
 {
@@ -45,6 +46,7 @@ namespace serber
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -53,33 +55,19 @@ namespace serber
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-                .AddJwtBearer(x =>
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
                 {
-                    x.Events = new JwtBearerEvents
-                    {
-                        OnTokenValidated = context =>
-                        {
-                            var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                            var userId = int.Parse(context.Principal.Identity.Name);
-                            var user = userService.GetById(userId);
-                            if (user == null)
-                            {
-                                // return unauthorized if user no longer exists
-                                context.Fail("Unauthorized");
-                            }
-                            return Task.CompletedTask;
-                        }
-                    };
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
@@ -87,15 +75,29 @@ namespace serber
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                
             }
-            context.Database.Migrate();
+
             app.UseHttpsRedirection();
+
+            //jwt configure
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            var options = new JwtBearerOptions
+            {
+                TokenValidationParameters =
+                {
+                    ValidIssuer = "http://localhost",
+                    ValidAudience = "object-project",
+                    IssuerSigningKey = new SymmetricSecurityKey(key)
+                }
+
+            };
 
             app.UseRouting();
 
@@ -109,6 +111,8 @@ namespace serber
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => endpoints.MapControllers());
+
+            context.Database.EnsureCreated();
         }
     }
 }

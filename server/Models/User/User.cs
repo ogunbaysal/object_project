@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,6 +29,9 @@ namespace server.Models.User
 
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
+        [DefaultValue(server.Models.User.Role.User)]
+        public string Role { get; set; }
+        public string Token { get; set; }
         public DateTime DateCreated { get; set; }
 
         public DateTime DateMofied { get; set; }

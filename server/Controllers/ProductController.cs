@@ -24,12 +24,11 @@ namespace server.Controllers
         }
         [HttpGet("all")]
         [AllowAnonymous]
-        public ActionResult<Product> GetAll([FromQuery] FopQuery request)
+        public ActionResult<Product> GetAll()
         {
-            var fopRequest = FopExpressionBuilder<Product>.Build(request.Filter, request.Order, request.PageNumber, request.PageSize);
             try
             {
-                var products = _service.GetAll(fopRequest);
+                var products = _service.GetAll();
                 return Ok(products);
             }catch(AppException ex)
             {

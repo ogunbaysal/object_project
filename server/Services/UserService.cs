@@ -1,8 +1,12 @@
-﻿using server.Helpers;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using server.Helpers;
 using server.Models.User;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +25,11 @@ namespace server.Services
     public class UserService : IUserService
     {
         private readonly ModelContext _context;
-        public UserService(ModelContext context)
+        private readonly AppSettings _appSettings;
+        public UserService(ModelContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
+            _appSettings = appSettings.Value;
         }
         public User Authenticate(string username, string password)
         {
@@ -34,10 +40,25 @@ namespace server.Services
             if (!VerifyPasswordHash(password, user.Password)){
                 return null;
             }
-
+            string token = BuildToken(user.Email, user.UserId, user.Role);
+            user.Token = token;
+            // remove password before returning
+            user.Password = null;
             return user;
         }
-
+        private string BuildToken(string Email, long Id, string Role)
+        {
+            // authentication successful so generate jwt token
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_appSettings.Secret));
+            var token = new JwtTokenBuilder()
+                .AddSecurityKey(securityKey)
+                .AddExpiry(30)
+                .AddClaim("Id", Id.ToString())
+                .AddRole(Role)
+                .AddClaim("Email", Email)
+                .Build();
+            return token;
+        }
         public IEnumerable<User> GetAll()
         {
             return _context.Users;
@@ -63,6 +84,8 @@ namespace server.Services
             User.Password = passwordHash;
             User.DateCreated = DateTime.Now;
             User.DateMofied = DateTime.Now;
+            User.Role = Role.User;
+            User.Token = null;
             _context.Users.Add(User);
             await _context.SaveChangesAsync();
             return User;

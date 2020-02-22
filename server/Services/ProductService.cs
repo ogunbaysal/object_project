@@ -10,7 +10,7 @@ namespace server.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAll(IFopRequest request);
+        IEnumerable<Product> GetAll();
         Task<Product> GetById(long id);
     }
     public class ProductService : IProductService
@@ -21,10 +21,10 @@ namespace server.Services
         {
             _context = context;
         }
-        public IEnumerable<Product> GetAll(IFopRequest request)
+        public IEnumerable<Product> GetAll()
         {
-            var (products, totalCount) = _context.Products.OrderByDescending(x=>x.ProductId).ApplyFop(request);
-            if(totalCount > 0)
+            var products = _context.Products.OrderByDescending(x => x.ProductId);
+            if(products.Any())
             {
                 return products;
             }
