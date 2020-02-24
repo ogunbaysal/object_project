@@ -32,7 +32,7 @@ namespace server.Models.User
         [DefaultValue(server.Models.User.Role.User)]
         public string Role { get; set; }
         public string Token { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
 
         public DateTime DateMofied { get; set; }
 

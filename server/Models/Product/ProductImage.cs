@@ -18,7 +18,7 @@ namespace server.Models.Product
         public string Url { get; set; }
         [Required(ErrorMessage = "Product is required")]
         public Product Product { get; set; }
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.UtcNow;
         public DateTime DateModified { get; set; }
 
 

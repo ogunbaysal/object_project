@@ -1,5 +1,4 @@
-﻿using server.Models.CrossTable;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -21,9 +20,8 @@ namespace server.Models.ProductProperty
         public string Tag { get; set; }
         [Required(ErrorMessage = "Url is required")]
         public string Url { get; set; }
-        public virtual ICollection<ProductProductColor> Products { get;set; }
         public PropertyStatus Status { get; set; }
-        public DateTime DateAdded { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.UtcNow;
         public DateTime DateModified { get; set; }
     }
 }

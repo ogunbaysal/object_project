@@ -6,8 +6,6 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Fop;
-using Fop.FopExpression;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +32,7 @@ namespace server.Controllers
             _appSettings = appSettings.Value;
         }
 
-
+        [Authorize(Roles = Role.Admin)]
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(long id)
         {
@@ -42,7 +40,13 @@ namespace server.Controllers
             var model = _mapper.Map<User>(user);
             return Ok(model);
         }
-
+        [HttpGet("profile")]
+        public async Task<ActionResult<User>> GetProfile()
+        {
+            var user = await _userService.GetById(Convert.ToInt32(HttpContext.User.Claims.First(x => x.Type == "Id").Value));
+            var model = _mapper.Map<User>(user);
+            return Ok(model);
+        }
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] AuthenticateModel model)

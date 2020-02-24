@@ -108,6 +108,36 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "products",
+                columns: table => new
+                {
+                    ProductId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: false),
+                    Description = table.Column<string>(nullable: false),
+                    StockCount = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_products", x => x.ProductId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "province",
+                columns: table => new
+                {
+                    ProvinceId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_province", x => x.ProvinceId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
                 {
@@ -153,42 +183,111 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "products",
+                name: "product_propery",
                 columns: table => new
                 {
-                    ProductId = table.Column<long>(nullable: false)
+                    ProductPropertId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: false),
-                    Description = table.Column<string>(nullable: false),
-                    Price = table.Column<float>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false),
-                    DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    ProductId = table.Column<long>(nullable: true),
+                    ProductColorId = table.Column<long>(nullable: true),
+                    ProductHeightId = table.Column<long>(nullable: true),
                     ProductSizeId = table.Column<long>(nullable: true),
                     ProductThemeId = table.Column<long>(nullable: true),
-                    ProductTrotterId = table.Column<long>(nullable: true)
+                    ProductTrotterId = table.Column<long>(nullable: true),
+                    StockCount = table.Column<int>(nullable: false),
+                    Price = table.Column<float>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_products", x => x.ProductId);
+                    table.PrimaryKey("PK_product_propery", x => x.ProductPropertId);
                     table.ForeignKey(
-                        name: "FK_products_product_size_ProductSizeId",
+                        name: "FK_product_propery_product_colors_ProductColorId",
+                        column: x => x.ProductColorId,
+                        principalTable: "product_colors",
+                        principalColumn: "ProductColorId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_product_propery_product_height_ProductHeightId",
+                        column: x => x.ProductHeightId,
+                        principalTable: "product_height",
+                        principalColumn: "ProductHeightId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_product_propery_products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "products",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_product_propery_product_size_ProductSizeId",
                         column: x => x.ProductSizeId,
                         principalTable: "product_size",
                         principalColumn: "ProductSizeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_products_product_theme_ProductThemeId",
+                        name: "FK_product_propery_product_theme_ProductThemeId",
                         column: x => x.ProductThemeId,
                         principalTable: "product_theme",
                         principalColumn: "ProductThemeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_products_product_trotter_ProductTrotterId",
+                        name: "FK_product_propery_product_trotter_ProductTrotterId",
                         column: x => x.ProductTrotterId,
                         principalTable: "product_trotter",
                         principalColumn: "ProductTrotterId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "district",
+                columns: table => new
+                {
+                    DistrictId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true),
+                    ProvinceId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_district", x => x.DistrictId);
+                    table.ForeignKey(
+                        name: "FK_district_province_ProvinceId",
+                        column: x => x.ProvinceId,
+                        principalTable: "province",
+                        principalColumn: "ProvinceId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "basket",
+                columns: table => new
+                {
+                    BasketId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductPropertId = table.Column<long>(nullable: false),
+                    ProductProperyProductPropertId = table.Column<long>(nullable: true),
+                    UserId = table.Column<long>(nullable: false),
+                    Count = table.Column<int>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_basket", x => x.BasketId);
+                    table.ForeignKey(
+                        name: "FK_basket_product_propery_ProductProperyProductPropertId",
+                        column: x => x.ProductProperyProductPropertId,
+                        principalTable: "product_propery",
+                        principalColumn: "ProductPropertId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_basket_users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,7 +300,8 @@ namespace server.Migrations
                     Url = table.Column<string>(nullable: false),
                     ProductId = table.Column<long>(nullable: false),
                     DateAdded = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false)
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    ProductPropertyProductPropertId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,142 +312,100 @@ namespace server.Migrations
                         principalTable: "products",
                         principalColumn: "ProductId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_product_images_product_propery_ProductPropertyProductPropertId",
+                        column: x => x.ProductPropertyProductPropertId,
+                        principalTable: "product_propery",
+                        principalColumn: "ProductPropertId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductProductColors",
+                name: "order",
                 columns: table => new
                 {
-                    CrossId = table.Column<long>(nullable: false)
+                    OrderId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<long>(nullable: false),
-                    ProductColorId = table.Column<long>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false)
+                    DistrictId = table.Column<long>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    TrackCode = table.Column<string>(nullable: true),
+                    OrderDate = table.Column<DateTime>(nullable: false),
+                    TotalPrice = table.Column<float>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductProductColors", x => x.CrossId);
+                    table.PrimaryKey("PK_order", x => x.OrderId);
                     table.ForeignKey(
-                        name: "FK_ProductProductColors_product_colors_ProductColorId",
-                        column: x => x.ProductColorId,
-                        principalTable: "product_colors",
-                        principalColumn: "ProductColorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProductColors_products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_order_district_DistrictId",
+                        column: x => x.DistrictId,
+                        principalTable: "district",
+                        principalColumn: "DistrictId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductProductHeights",
+                name: "order_detail",
                 columns: table => new
                 {
-                    CrossId = table.Column<long>(nullable: false)
+                    OrderDetailId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<long>(nullable: false),
-                    ProductHeightId = table.Column<long>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false)
+                    OrderId = table.Column<long>(nullable: true),
+                    DeliveryDate = table.Column<DateTime>(nullable: false),
+                    ProductProperyProductPropertId = table.Column<long>(nullable: true),
+                    UnitPrice = table.Column<float>(nullable: false),
+                    Piece = table.Column<int>(nullable: false),
+                    TotalPrice = table.Column<float>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductProductHeights", x => x.CrossId);
+                    table.PrimaryKey("PK_order_detail", x => x.OrderDetailId);
                     table.ForeignKey(
-                        name: "FK_ProductProductHeights_product_height_ProductHeightId",
-                        column: x => x.ProductHeightId,
-                        principalTable: "product_height",
-                        principalColumn: "ProductHeightId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_order_detail_order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "order",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ProductProductHeights_products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_order_detail_product_propery_ProductProperyProductPropertId",
+                        column: x => x.ProductProperyProductPropertId,
+                        principalTable: "product_propery",
+                        principalColumn: "ProductPropertId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ProductProductSizes",
-                columns: table => new
-                {
-                    CrossId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<long>(nullable: false),
-                    ProductSizeId = table.Column<long>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductProductSizes", x => x.CrossId);
-                    table.ForeignKey(
-                        name: "FK_ProductProductSizes_products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProductSizes_product_size_ProductSizeId",
-                        column: x => x.ProductSizeId,
-                        principalTable: "product_size",
-                        principalColumn: "ProductSizeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_basket_ProductProperyProductPropertId",
+                table: "basket",
+                column: "ProductProperyProductPropertId");
 
-            migrationBuilder.CreateTable(
-                name: "ProductProductThemes",
-                columns: table => new
-                {
-                    CrossId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<long>(nullable: false),
-                    ProductThemeId = table.Column<long>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductProductThemes", x => x.CrossId);
-                    table.ForeignKey(
-                        name: "FK_ProductProductThemes_products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProductThemes_product_theme_ProductThemeId",
-                        column: x => x.ProductThemeId,
-                        principalTable: "product_theme",
-                        principalColumn: "ProductThemeId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_basket_UserId",
+                table: "basket",
+                column: "UserId");
 
-            migrationBuilder.CreateTable(
-                name: "ProductProductTrotters",
-                columns: table => new
-                {
-                    CrossId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductId = table.Column<long>(nullable: false),
-                    ProductTrotterId = table.Column<long>(nullable: false),
-                    StockCount = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductProductTrotters", x => x.CrossId);
-                    table.ForeignKey(
-                        name: "FK_ProductProductTrotters_products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "products",
-                        principalColumn: "ProductId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductProductTrotters_product_trotter_ProductTrotterId",
-                        column: x => x.ProductTrotterId,
-                        principalTable: "product_trotter",
-                        principalColumn: "ProductTrotterId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_district_ProvinceId",
+                table: "district",
+                column: "ProvinceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_DistrictId",
+                table: "order",
+                column: "DistrictId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_detail_OrderId",
+                table: "order_detail",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_order_detail_ProductProperyProductPropertId",
+                table: "order_detail",
+                column: "ProductProperyProductPropertId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_product_images_ProductId",
@@ -355,68 +413,38 @@ namespace server.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductColors_ProductColorId",
-                table: "ProductProductColors",
+                name: "IX_product_images_ProductPropertyProductPropertId",
+                table: "product_images",
+                column: "ProductPropertyProductPropertId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_propery_ProductColorId",
+                table: "product_propery",
                 column: "ProductColorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductColors_ProductId",
-                table: "ProductProductColors",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductProductHeights_ProductHeightId",
-                table: "ProductProductHeights",
+                name: "IX_product_propery_ProductHeightId",
+                table: "product_propery",
                 column: "ProductHeightId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductHeights_ProductId",
-                table: "ProductProductHeights",
+                name: "IX_product_propery_ProductId",
+                table: "product_propery",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductSizes_ProductId",
-                table: "ProductProductSizes",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductProductSizes_ProductSizeId",
-                table: "ProductProductSizes",
+                name: "IX_product_propery_ProductSizeId",
+                table: "product_propery",
                 column: "ProductSizeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductThemes_ProductId",
-                table: "ProductProductThemes",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductProductThemes_ProductThemeId",
-                table: "ProductProductThemes",
+                name: "IX_product_propery_ProductThemeId",
+                table: "product_propery",
                 column: "ProductThemeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductProductTrotters_ProductId",
-                table: "ProductProductTrotters",
-                column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductProductTrotters_ProductTrotterId",
-                table: "ProductProductTrotters",
-                column: "ProductTrotterId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_products_ProductSizeId",
-                table: "products",
-                column: "ProductSizeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_products_ProductThemeId",
-                table: "products",
-                column: "ProductThemeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_products_ProductTrotterId",
-                table: "products",
+                name: "IX_product_propery_ProductTrotterId",
+                table: "product_propery",
                 column: "ProductTrotterId");
 
             migrationBuilder.CreateIndex(
@@ -428,28 +456,31 @@ namespace server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "basket");
+
+            migrationBuilder.DropTable(
+                name: "order_detail");
+
+            migrationBuilder.DropTable(
                 name: "product_images");
-
-            migrationBuilder.DropTable(
-                name: "ProductProductColors");
-
-            migrationBuilder.DropTable(
-                name: "ProductProductHeights");
-
-            migrationBuilder.DropTable(
-                name: "ProductProductSizes");
-
-            migrationBuilder.DropTable(
-                name: "ProductProductThemes");
-
-            migrationBuilder.DropTable(
-                name: "ProductProductTrotters");
 
             migrationBuilder.DropTable(
                 name: "sub_categories");
 
             migrationBuilder.DropTable(
                 name: "users");
+
+            migrationBuilder.DropTable(
+                name: "order");
+
+            migrationBuilder.DropTable(
+                name: "product_propery");
+
+            migrationBuilder.DropTable(
+                name: "category");
+
+            migrationBuilder.DropTable(
+                name: "district");
 
             migrationBuilder.DropTable(
                 name: "product_colors");
@@ -461,9 +492,6 @@ namespace server.Migrations
                 name: "products");
 
             migrationBuilder.DropTable(
-                name: "category");
-
-            migrationBuilder.DropTable(
                 name: "product_size");
 
             migrationBuilder.DropTable(
@@ -471,6 +499,9 @@ namespace server.Migrations
 
             migrationBuilder.DropTable(
                 name: "product_trotter");
+
+            migrationBuilder.DropTable(
+                name: "province");
         }
     }
 }

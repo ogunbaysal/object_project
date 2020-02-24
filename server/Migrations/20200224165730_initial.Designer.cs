@@ -10,7 +10,7 @@ using server.Helpers;
 namespace server.Migrations
 {
     [DbContext(typeof(ModelContext))]
-    [Migration("20200222204950_initial")]
+    [Migration("20200224165730_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,41 @@ namespace server.Migrations
                 .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("server.Models.Address.District", b =>
+                {
+                    b.Property<long>("DistrictId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("ProvinceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DistrictId");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("district");
+                });
+
+            modelBuilder.Entity("server.Models.Address.Province", b =>
+                {
+                    b.Property<long>("ProvinceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProvinceId");
+
+                    b.ToTable("province");
+                });
 
             modelBuilder.Entity("server.Models.Category.Category", b =>
                 {
@@ -84,129 +119,113 @@ namespace server.Migrations
                     b.ToTable("sub_categories");
                 });
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductColor", b =>
+            modelBuilder.Entity("server.Models.Order.Basket", b =>
                 {
-                    b.Property<long>("CrossId")
+                    b.Property<long>("BasketId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ProductColorId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("StockCount")
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.HasKey("CrossId");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("ProductColorId");
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
 
-                    b.HasIndex("ProductId");
+                    b.Property<long>("ProductPropertId")
+                        .HasColumnType("bigint");
 
-                    b.ToTable("ProductProductColors");
+                    b.Property<long?>("ProductProperyProductPropertId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("BasketId");
+
+                    b.HasIndex("ProductProperyProductPropertId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("basket");
                 });
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductHeight", b =>
+            modelBuilder.Entity("server.Models.Order.Order", b =>
                 {
-                    b.Property<long>("CrossId")
+                    b.Property<long>("OrderId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ProductHeightId")
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DistrictId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("StockCount")
-                        .HasColumnType("int");
+                    b.Property<float>("TotalPrice")
+                        .HasColumnType("real");
 
-                    b.HasKey("CrossId");
+                    b.Property<string>("TrackCode")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ProductHeightId");
+                    b.HasKey("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("DistrictId");
 
-                    b.ToTable("ProductProductHeights");
+                    b.ToTable("order");
                 });
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductSize", b =>
+            modelBuilder.Entity("server.Models.Order.OrderDetail", b =>
                 {
-                    b.Property<long>("CrossId")
+                    b.Property<long>("OrderDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("ProductId")
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("OrderId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductSizeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("StockCount")
+                    b.Property<int>("Piece")
                         .HasColumnType("int");
 
-                    b.HasKey("CrossId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductSizeId");
-
-                    b.ToTable("ProductProductSizes");
-                });
-
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductTheme", b =>
-                {
-                    b.Property<long>("CrossId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ProductId")
+                    b.Property<long?>("ProductProperyProductPropertId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("ProductThemeId")
-                        .HasColumnType("bigint");
+                    b.Property<float>("TotalPrice")
+                        .HasColumnType("real");
 
-                    b.Property<int>("StockCount")
-                        .HasColumnType("int");
+                    b.Property<float>("UnitPrice")
+                        .HasColumnType("real");
 
-                    b.HasKey("CrossId");
+                    b.HasKey("OrderDetailId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductThemeId");
+                    b.HasIndex("ProductProperyProductPropertId");
 
-                    b.ToTable("ProductProductThemes");
-                });
-
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductTrotter", b =>
-                {
-                    b.Property<long>("CrossId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ProductId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProductTrotterId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("StockCount")
-                        .HasColumnType("int");
-
-                    b.HasKey("CrossId");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("ProductTrotterId");
-
-                    b.ToTable("ProductProductTrotters");
+                    b.ToTable("order_detail");
                 });
 
             modelBuilder.Entity("server.Models.Product.Product", b =>
@@ -216,7 +235,7 @@ namespace server.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateAdded")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateModified")
@@ -226,18 +245,6 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
-
-                    b.Property<long?>("ProductSizeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ProductThemeId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("ProductTrotterId")
-                        .HasColumnType("bigint");
-
                     b.Property<int>("StockCount")
                         .HasColumnType("int");
 
@@ -246,12 +253,6 @@ namespace server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
-
-                    b.HasIndex("ProductSizeId");
-
-                    b.HasIndex("ProductThemeId");
-
-                    b.HasIndex("ProductTrotterId");
 
                     b.ToTable("products");
                 });
@@ -272,6 +273,9 @@ namespace server.Migrations
                     b.Property<long>("ProductId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("ProductPropertyProductPropertId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -283,7 +287,63 @@ namespace server.Migrations
 
                     b.HasIndex("ProductId");
 
+                    b.HasIndex("ProductPropertyProductPropertId");
+
                     b.ToTable("product_images");
+                });
+
+            modelBuilder.Entity("server.Models.Product.ProductProperty", b =>
+                {
+                    b.Property<long>("ProductPropertId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<long?>("ProductColorId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ProductHeightId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ProductId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ProductSizeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ProductThemeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ProductTrotterId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("StockCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("ProductPropertId");
+
+                    b.HasIndex("ProductColorId");
+
+                    b.HasIndex("ProductHeightId");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductSizeId");
+
+                    b.HasIndex("ProductThemeId");
+
+                    b.HasIndex("ProductTrotterId");
+
+                    b.ToTable("product_propery");
                 });
 
             modelBuilder.Entity("server.Models.ProductProperty.ProductColor", b =>
@@ -466,112 +526,91 @@ namespace server.Migrations
                     b.ToTable("users");
                 });
 
+            modelBuilder.Entity("server.Models.Address.District", b =>
+                {
+                    b.HasOne("server.Models.Address.Province", "Province")
+                        .WithMany("Districts")
+                        .HasForeignKey("ProvinceId");
+                });
+
             modelBuilder.Entity("server.Models.Category.SubCategory", b =>
                 {
                     b.HasOne("server.Models.Category.Category", "ParentCategory")
-                        .WithMany()
+                        .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryCategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductColor", b =>
+            modelBuilder.Entity("server.Models.Order.Basket", b =>
                 {
-                    b.HasOne("server.Models.ProductProperty.ProductColor", "ProductColor")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductColorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductColors")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductHeight", b =>
-                {
-                    b.HasOne("server.Models.ProductProperty.ProductHeight", "ProductHeight")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductHeightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductHeights")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductSize", b =>
-                {
-                    b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductSizes")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Models.ProductProperty.ProductSize", "ProductSize")
+                    b.HasOne("server.Models.Product.ProductProperty", "ProductPropery")
                         .WithMany()
-                        .HasForeignKey("ProductSizeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                        .HasForeignKey("ProductProperyProductPropertId");
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductTheme", b =>
-                {
-                    b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductThemes")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Models.ProductProperty.ProductTheme", "ProductTheme")
+                    b.HasOne("server.Models.User.User", "User")
                         .WithMany()
-                        .HasForeignKey("ProductThemeId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("server.Models.CrossTable.ProductProductTrotter", b =>
+            modelBuilder.Entity("server.Models.Order.Order", b =>
                 {
-                    b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductTrotters")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("server.Models.ProductProperty.ProductTrotter", "ProductTrotter")
+                    b.HasOne("server.Models.Address.District", "District")
                         .WithMany()
-                        .HasForeignKey("ProductTrotterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DistrictId");
                 });
 
-            modelBuilder.Entity("server.Models.Product.Product", b =>
+            modelBuilder.Entity("server.Models.Order.OrderDetail", b =>
                 {
-                    b.HasOne("server.Models.ProductProperty.ProductSize", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ProductSizeId");
+                    b.HasOne("server.Models.Order.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId");
 
-                    b.HasOne("server.Models.ProductProperty.ProductTheme", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ProductThemeId");
-
-                    b.HasOne("server.Models.ProductProperty.ProductTrotter", null)
-                        .WithMany("Products")
-                        .HasForeignKey("ProductTrotterId");
+                    b.HasOne("server.Models.Product.ProductProperty", "ProductPropery")
+                        .WithMany()
+                        .HasForeignKey("ProductProperyProductPropertId");
                 });
 
             modelBuilder.Entity("server.Models.Product.ProductImage", b =>
                 {
                     b.HasOne("server.Models.Product.Product", "Product")
-                        .WithMany("ProductImages")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("server.Models.Product.ProductProperty", null)
+                        .WithMany("ProductImages")
+                        .HasForeignKey("ProductPropertyProductPropertId");
+                });
+
+            modelBuilder.Entity("server.Models.Product.ProductProperty", b =>
+                {
+                    b.HasOne("server.Models.ProductProperty.ProductColor", "ProductColor")
+                        .WithMany()
+                        .HasForeignKey("ProductColorId");
+
+                    b.HasOne("server.Models.ProductProperty.ProductHeight", "ProductHeight")
+                        .WithMany()
+                        .HasForeignKey("ProductHeightId");
+
+                    b.HasOne("server.Models.Product.Product", "Product")
+                        .WithMany("ProductProperties")
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("server.Models.ProductProperty.ProductSize", "ProductSize")
+                        .WithMany()
+                        .HasForeignKey("ProductSizeId");
+
+                    b.HasOne("server.Models.ProductProperty.ProductTheme", "ProductTheme")
+                        .WithMany()
+                        .HasForeignKey("ProductThemeId");
+
+                    b.HasOne("server.Models.ProductProperty.ProductTrotter", "ProductTrotter")
+                        .WithMany()
+                        .HasForeignKey("ProductTrotterId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,4 @@
-﻿using Fop;
-using server.Helpers;
+﻿using server.Helpers;
 using server.Models.Category;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ namespace server.Services
         Category GetById(long id);
         Category GetBySlug(string slug);
         IEnumerable<Category> GetAll();
-        IEnumerable<Category> GetAll(IFopRequest request);
 
     }
     public class CategoryService : ICategoryService
@@ -28,15 +26,6 @@ namespace server.Services
         {
 
             return _context.Categories.Where(x => x.Status == CategoryStatus.ACTIVE).ToList();
-        }
-        public IEnumerable<Category> GetAll(IFopRequest request)
-        {
-            var (categories, totalCount) = _context.Categories.Where(x => x.Status == CategoryStatus.ACTIVE).ApplyFop(request);
-            if (totalCount == 0)
-            {
-                throw new AppException("No Category Found");
-            }
-            return categories;
         }
 
         public Category GetById(long id)

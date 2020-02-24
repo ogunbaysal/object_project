@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Fop;
-using Fop.FopExpression;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,12 +22,11 @@ namespace server.Controllers
         }
         [AllowAnonymous]
         [HttpGet("all")]
-        public ActionResult<Category> GetCategories([FromQuery] FopQuery request)
+        public ActionResult<Category> GetCategories()
         {
-            var fopRequest = FopExpressionBuilder<Category>.Build(request.Filter, request.Order, request.PageNumber, request.PageSize);
             try
             {
-                var categories = _service.GetAll(fopRequest);
+                var categories = _service.GetAll();
                 return Ok(categories);
             }catch(AppException ex)
             {

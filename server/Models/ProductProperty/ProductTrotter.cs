@@ -19,9 +19,8 @@ namespace server.Models.ProductProperty
         public string Title { get; set; }
         [Required(ErrorMessage = "Slug is required")]
         public string Slug { get; set; }
-        public ICollection<Product.Product> Products { get; set; }
         public PropertyStatus Status { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime DateMofied { get; set; }
     }
 }

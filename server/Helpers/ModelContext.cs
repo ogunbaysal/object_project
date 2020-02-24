@@ -7,7 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using server.Models.CrossTable;
+using server.Models.Address;
+using server.Models.Order;
 
 namespace server.Helpers
 {
@@ -19,6 +20,9 @@ namespace server.Helpers
         public DbSet<Category> Categories {get; set;}
         public DbSet<SubCategory> SubCategories {get; set;}
 
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+
 
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
@@ -29,18 +33,12 @@ namespace server.Helpers
 
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductProperty> ProductProperties { get; set; }
+
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
         public ModelContext(DbContextOptions options) : base(options) { }
-
-
-        #region Product Cross Tables
-        public DbSet<ProductProductSize> ProductProductSizes { get; set; }
-        public DbSet<ProductProductColor> ProductProductColors { get; set; }
-        public DbSet<ProductProductHeight> ProductProductHeights { get; set; }
-        public DbSet<ProductProductTheme> ProductProductThemes { get; set; }
-        public DbSet<ProductProductTrotter> ProductProductTrotters { get; set; }
-               
-
-        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

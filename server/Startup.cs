@@ -20,6 +20,7 @@ using server.Models.User;
 using server.Services;
 using server.Models.Category;
 using Microsoft.AspNetCore.Identity;
+using Sieve.Services;
 
 namespace serber
 {
@@ -68,10 +69,12 @@ namespace serber
                 };
             });
 
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
-
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -22,7 +22,7 @@ namespace server.Models.Category
         public Category ParentCategory { get; set; }
 
         public CategoryStatus Status { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime DateMofied { get; set; }
     }
 }
