@@ -19,7 +19,7 @@ namespace server.Models.ProductProperty
         public string Slug { get; set; }
         public PropertyStatus Status { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-        public DateTime DateMofied { get; set; }
+        public DateTime DateModified { get; set; }
 
     }
 }

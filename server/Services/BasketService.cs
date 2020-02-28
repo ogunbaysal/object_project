@@ -12,6 +12,7 @@ namespace server.Services
         public ICollection<Basket> GetUserBasket(long UserId);
         public void AddItem(long UserId, long ProductPropertId, int Count);
         public void RemoveItem(long UserId, long ProductPropertId, int Count);
+        public void Clear(long UserId);
     }
     public class BasketService : IBasketService
     {
@@ -61,10 +62,31 @@ namespace server.Services
             var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertId == ProductPropertId);
             if(isExists != null)
             {
-                isExists.Count -= Count;
+                if(isExists.Count - Count <= 0)
+                {
+                    isExists.Status = BasketStatus.PASSIVE;
+                }
+                else
+                {
+                    isExists.Count -= Count;
+                }
                 _context.Baskets.Update(isExists);
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new AppException("No basket found");
+            }
+        }
+        public void Clear(long UserId)
+        {
+            var list = _context.Baskets.Where(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE).ToList();
+            foreach(var item in list)
+            {
+                item.Status = BasketStatus.PASSIVE;
+                _context.Baskets.Update(item);
+            }
+            _context.SaveChanges();
         }
     }
 }

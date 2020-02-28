@@ -8,6 +8,7 @@ namespace server.Models.ProductProperty
     public enum PropertyStatus
     {
         ACTIVE = 1,
-        PASSIVE = 0
+        PASSIVE = 0,
+        DELETED = 2
     }
 }

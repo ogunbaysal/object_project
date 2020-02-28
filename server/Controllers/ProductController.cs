@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using server.Filter;
 using server.Helpers;
 using server.Models.Product;
 using server.Services;
@@ -25,16 +26,23 @@ namespace server.Controllers
         }
         [HttpGet("all")]
         [AllowAnonymous]
-        public ActionResult<Product> GetAll()
+        public ActionResult<ICollection<Product>> GetAll(PaginationSearchModel pagination)
         {
             try
             {
-                var products = _service.GetAll();
+                var products = _service.GetAll(pagination);
                 return Ok(products);
             }catch(AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [HttpGet("seed")]
+        public ActionResult Seed()
+        {
+            _service.Seed();
+            return Ok();
+        }
+
     }
 }

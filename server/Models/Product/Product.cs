@@ -15,7 +15,6 @@ namespace server.Models.Product
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public long ProductId { get; set; }
-
         public ICollection<ProductProperty> ProductProperties { get; set; }
 
         [Required(ErrorMessage = "Title is required")]
@@ -24,8 +23,6 @@ namespace server.Models.Product
         [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
 
-        [Required(ErrorMessage = "Product count is required")]
-        public int StockCount { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime DateModified { get; set; }
         

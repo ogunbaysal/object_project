@@ -14,7 +14,6 @@ namespace server.Helpers
 {
     public class ModelContext : DbContext
     {
-        
         public DbSet<User> Users { get; set; }
         
         public DbSet<Category> Categories {get; set;}
@@ -27,7 +26,7 @@ namespace server.Helpers
         public DbSet<ProductColor> ProductColors { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProductSize> ProductSizes { get; set; }
-        public DbSet<ProductTrotter> ProtectTrotters { get; set; }
+        public DbSet<ProductTrotter> ProductTrotters { get; set; }
         public DbSet<ProductTheme> ProductThemes{ get; set; }
         public DbSet<ProductHeight> ProductHeights { get; set; }
 
@@ -38,12 +37,14 @@ namespace server.Helpers
         public DbSet<Basket> Baskets { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
-        public ModelContext(DbContextOptions options) : base(options) { }
+        public ModelContext(DbContextOptions options) : base(options) 
+        { 
+           
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
 
         }
     }

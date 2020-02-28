@@ -24,5 +24,12 @@ namespace client
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window MainWindow = new Administrator.Administrator();
+            MainWindow.Show();
+            this.Close();
+        }
     }
 }

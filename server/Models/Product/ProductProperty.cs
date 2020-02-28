@@ -14,6 +14,7 @@ namespace server.Models.Product
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ProductPropertId { get; set; }
+        public long ProductId { get; set; }
         public Product Product { get; set; }
         public virtual ICollection<ProductImage> ProductImages { get; set; }
         public ProductColor ProductColor { get; set; }

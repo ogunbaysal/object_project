@@ -38,6 +38,8 @@ namespace server.Controllers
         {
             var user = await _userService.GetById(id);
             var model = _mapper.Map<User>(user);
+            model.Password = null;
+            model.Token = null;
             return Ok(model);
         }
         [HttpGet("profile")]
@@ -82,8 +84,6 @@ namespace server.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [HttpGet("profile")]
-
         [HttpPut("profile")]
         public IActionResult UpdateProfile([FromBody] UpdateModel model)
         {
