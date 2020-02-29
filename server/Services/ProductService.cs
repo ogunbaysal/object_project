@@ -6,7 +6,6 @@ using System.Linq;
 using PagedList;
 using System.Threading.Tasks;
 using server.Filter;
-using server.Seeds;
 
 namespace server.Services
 {
@@ -16,7 +15,6 @@ namespace server.Services
         Task<Product> GetById(long id);
         Task AddProduct(Product product);
         Task AddProductProperty(ProductProperty item);
-        void Seed();
     }
     public class ProductService : IProductService
     {
@@ -25,11 +23,6 @@ namespace server.Services
         public ProductService(ModelContext context)
         {
             _context = context;
-        }
-        public void Seed()
-        {
-            var seeder = new ProductSeeder(_context);
-            seeder.Seed();
         }
         public IEnumerable<Product> GetAll(PaginationSearchModel pagination)
         {

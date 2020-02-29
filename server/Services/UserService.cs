@@ -83,7 +83,7 @@ namespace server.Services
             string passwordHash = CreatePasswordHash(Password);
             User.Password = passwordHash;
             User.DateCreated = DateTime.Now;
-            User.DateMofied = DateTime.Now;
+            User.DateModified = DateTime.Now;
             User.Role = Role.User;
             User.Token = null;
             _context.Users.Add(User);
@@ -123,7 +123,7 @@ namespace server.Services
                 user.Password = hashedPassword; isChanged = true;
             }
             if (isChanged)
-                user.DateMofied = DateTime.Now;
+                user.DateModified = DateTime.Now;
             _context.Users.Update(user);
             _context.SaveChanges();
 

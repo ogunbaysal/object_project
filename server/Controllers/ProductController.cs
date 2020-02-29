@@ -37,12 +37,6 @@ namespace server.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        [HttpGet("seed")]
-        public ActionResult Seed()
-        {
-            _service.Seed();
-            return Ok();
-        }
 
     }
 }

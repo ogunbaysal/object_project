@@ -17,6 +17,7 @@ namespace server.Models.Address
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long DistrictId { get; set; }
         public string Title { get; set; }
+        public long ProvinceId { get; set; }
         public Province Province { get; set; }
     }
 }

@@ -18,11 +18,12 @@ namespace server.Models.Category
         [Required(ErrorMessage = "Slug is required")]
         public string Slug { get; set; }
 
+        public long ParentCategoryId { get; set; }
         [Required(ErrorMessage = "Parent Category is required")]
         public Category ParentCategory { get; set; }
-
-        public CategoryStatus Status { get; set; }
+        public ICollection<ChildCategory> ChildCategories { get; set; }
+        public CategoryStatus Status { get; set; } = CategoryStatus.ACTIVE;
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
-        public DateTime DateMofied { get; set; }
+        public DateTime DateModified { get; set; }
     }
 }
