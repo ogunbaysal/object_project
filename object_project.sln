@@ -10,7 +10,13 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{187DEDCA-5A13-4A2E-B396-C84EC51F5C3C}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		ApiEndpoints.md = ApiEndpoints.md
 		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoints", "Endpoints", "{D583644F-8AAF-4E79-93CA-5A2BE524A255}"
+	ProjectSection(SolutionItems) = preProject
+		UserEndpoints.md = UserEndpoints.md
 	EndProjectSection
 EndProject
 Global
@@ -30,6 +36,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D583644F-8AAF-4E79-93CA-5A2BE524A255} = {187DEDCA-5A13-4A2E-B396-C84EC51F5C3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A4D947A5-4B25-4417-AE62-4897F094B875}
