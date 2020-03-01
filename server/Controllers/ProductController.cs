@@ -7,7 +7,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using server.Filter;
 using server.Helpers;
 using server.Models.Product;
 using server.Services;

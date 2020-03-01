@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using server.Filter;
 using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
