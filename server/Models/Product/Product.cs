@@ -1,5 +1,6 @@
 ﻿using server.Models.Category;
 using server.Models.ProductProperty;
+using Sieve.Attributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,11 +22,15 @@ namespace server.Models.Product
         [Required(ErrorMessage = "ChildCategory is required")]
         public ChildCategory ChildCategory { get; set; }
         [Required(ErrorMessage = "Title is required")]
+        [Sieve(CanFilter = true, CanSort = true)]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Description is required")]
+        [Sieve(CanFilter = true)]
         public string Description { get; set; }
+        [Sieve(CanFilter = true, CanSort = true, Name = "created")]
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
+        [Sieve(CanFilter = true, CanSort = true, Name = "modified")]
         public DateTime DateModified { get; set; }
         
     }

@@ -69,6 +69,7 @@ namespace serber
                 };
             });
 
+            services.AddScoped<SieveProcessor>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICategoryService, CategoryService>();

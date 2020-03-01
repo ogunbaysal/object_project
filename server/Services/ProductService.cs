@@ -3,67 +3,113 @@ using server.Models.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using PagedList;
 using System.Threading.Tasks;
 using server.Filter;
+using Microsoft.EntityFrameworkCore;
+using Sieve.Models;
+using Sieve.Services;
+using System.Collections;
 
 namespace server.Services
 {
     public interface IProductService
     {
-        IEnumerable<Product> GetAll(PaginationSearchModel pagination);
+        IEnumerable<object> GetAll(SieveModel sieveModel);
         Task<Product> GetById(long id);
         Task AddProduct(Product product);
         Task AddProductProperty(ProductProperty item);
+        Task<ICollection<object>> GetProductProperties(long ProductId);
     }
     public class ProductService : IProductService
     {
         private readonly ModelContext _context;
+        private SieveProcessor _sieveProcessor;
 
-        public ProductService(ModelContext context)
+        public ProductService(ModelContext context, SieveProcessor processor)
         {
             _context = context;
+            _sieveProcessor = processor;
         }
-        public IEnumerable<Product> GetAll(PaginationSearchModel pagination)
+        public IEnumerable<object> GetAll(SieveModel sieveModel)
         {
-            var pageSize = pagination.itemCount.HasValue ? pagination.itemCount.Value : 10;
-            int pageNumber = pagination.page.HasValue ? pagination.page.Value : 1;
-            string sortBy = String.IsNullOrEmpty(pagination.sort) ? "ProductId" : pagination.sort;
-            if (!String.IsNullOrEmpty(pagination.searchString))
-            {
-                var products = _context
-                .Products
-                .Where(
-                    x => 
-                    x.Title.Contains(pagination.searchString, StringComparison.OrdinalIgnoreCase) ||
-                    x.Description.Contains(pagination.searchString, StringComparison.OrdinalIgnoreCase)
-                )
-                .OrderByDescending(x => x.GetType().Name == sortBy)
-                .ToPagedList(pageNumber, pageSize);
-                if (products.Any())
-                {
-                    return products;
-                }
-                else
-                {
-                    throw new AppException("No Product Found");
-                }
-            }
-            else
-            {
-                var products = _context
-                .Products
-                .ToPagedList(pageNumber, pageSize);
-                if (products.Any())
-                {
-                    return products;
-                }
-                else
-                {
-                    throw new AppException("No Product Found");
-                }
-            }
+            var result = _context.Products
+                .Include(x => x.ChildCategory)
+                .Select(x =>
+                    new
+                    {
+                        ProductId = x.ProductId,
+                        ChildCategory = new
+                        {
+                            ChildCategoryId = x.ChildCategory.ChildCategoryId,
+                            Title = x.ChildCategory.Title,
+                            Slug = x.ChildCategory.Slug
+                        },
+                        Title = x.Title,
+                        Description = x.Description,
+                        DateCreated = x.DateCreated,
+                        DateModified = x.DateModified
+                    }
+                 )
+                .AsNoTracking();
+            result = _sieveProcessor.Apply(sieveModel, result);
             
+            return result;
+        }
+        public async Task<ICollection<object>> GetProductProperties(long ProductId)
+        {
+            var properties = await _context.ProductProperties
+                    .Where(x => x.ProductId == ProductId)
+                    .Include(x => x.ProductColor)
+                    .Include(x => x.ProductHeight)
+                    .Include(x => x.ProductSize)
+                    .Include(x => x.ProductTheme)
+                    .Include(x => x.ProductTrotter)
+                    .ToListAsync();
+            var items = new List<object>();
+            foreach (var property in properties)
+            {
+                var Color = property.ProductColorId is null ? null : new
+                {
+                    ColorId = property.ProductColor.ProductColorId,
+                    Tag = property.ProductColor.Tag,
+                    Url = property.ProductColor.Url
+                };
+                var Size = property.ProductSizeId is null ? null : new
+                {
+                    SizeId = property.ProductSize.ProductSizeId,
+                    Title = property.ProductSize.Title
+                };
+                var Height = property.ProductHeightId is null ? null : new
+                {
+                    HeightId = property.ProductHeight.ProductHeightId,
+                    Title = property.ProductHeight.Title
+                };
+                var Theme = new
+                {
+                    ThemeId = property.ProductTheme.ProductThemeId,
+                    Title = property.ProductTheme.Title,
+                    Slug = property.ProductTheme.Slug
+                };
+                var Trotter = property.ProductTrotterId is null ? null : new
+                {
+                    TrotterId = property.ProductTrotter.ProductTrotterId,
+                    Title = property.ProductTrotter.Title,
+                    Slug = property.ProductTrotter.Slug
+                };
+                items.Add(new
+                {
+                    Title = property.Title,
+                    Description = property.Description,
+                    DateCreated = property.DateCreated,
+                    DateModified = property.DateModified,
+                    Color = Color,
+                    Height = Height,
+                    Size = Size,
+                    Theme = Theme,
+                    Trotter = Trotter
+                });
+            }
+            return items.ToArray();
         }
         public async Task<Product> GetById(long id)
         {
