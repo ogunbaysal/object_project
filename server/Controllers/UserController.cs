@@ -61,11 +61,6 @@ namespace server.Controllers
             // return basic user info and authentication token
             return Ok(new
             {
-                Id = user.UserId,
-                Username = user.Username,
-                FirstName = user.Firstname,
-                LastName = user.Lastname,
-                Email = user.Email,
                 Token = user.Token
             });
         }

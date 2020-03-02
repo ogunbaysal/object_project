@@ -13,9 +13,11 @@ namespace server.Models.Order
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long OrderDetailId { get; set; }
+        public long OrderId { get; set; }
+        [Required(ErrorMessage = "Order is required")]
         public Order Order { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public Product.ProductProperty ProductPropery { get; set; }
+        public Product.ProductProperty ProductProperty { get; set; }
         public float UnitPrice { get; set; }
         public int Piece { get; set; }
         public float TotalPrice { get; set; }

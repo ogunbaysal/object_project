@@ -14,11 +14,12 @@ namespace server.Models.Order
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long OrderId { get; set; }
-
+        public long UserId { get; set; }
+        [Required(ErrorMessage = "User is required")]
+        public User.User User { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public District District { get; set; }
         public string Address { get; set; }
-
         public string TrackCode { get; set; }
         public DateTime OrderDate { get; set; }
         public float TotalPrice { get; set; }

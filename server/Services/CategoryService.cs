@@ -1,17 +1,18 @@
-﻿using server.Helpers;
+﻿using Microsoft.EntityFrameworkCore;
+using server.Helpers;
 using server.Models.Category;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace server.Services
 {
     public interface ICategoryService
     {
-        Category GetById(long id);
-        Category GetBySlug(string slug);
-        IEnumerable<Category> GetAll();
+        Task<Category> GetCategoryById(long id);
+        Task<SubCategory> GetSubCategoryById(long id);
+        Task<ChildCategory> GetChildCategoryById(long id);
+        Task<IEnumerable<Category>> GetAll();
 
     }
     public class CategoryService : ICategoryService
@@ -22,15 +23,32 @@ namespace server.Services
         {
             _context = context;
         }
-        public IEnumerable<Category> GetAll()
+        public async Task<IEnumerable<Category>> GetAll()
         {
 
-            return _context.Categories.Where(x => x.Status == CategoryStatus.ACTIVE).ToList();
+            var list = await _context.Categories
+                .AsNoTracking()
+                .AsQueryable()
+                .Where(x => x.Status == CategoryStatus.ACTIVE)
+                .Include(x => x.SubCategories)
+                .ToListAsync();
+            foreach(var item in list)
+            {
+                foreach(var sub in item.SubCategories)
+                {
+                    var childs = await _context.ChildCategories
+                        .AsNoTracking()
+                        .AsQueryable()
+                        .Where(x => x.SubCategoryId == sub.SubCategoryId && x.Status == CategoryStatus.ACTIVE)
+                        .ToListAsync();
+                    sub.ChildCategories = childs;
+                }
+            }
+            return list;
         }
-
-        public Category GetById(long id)
+        public async Task<Category> GetCategoryById(long id)
         {
-            var Category = _context.Categories.Find(id);
+            var Category = await _context.Categories.FindAsync(id);
             if (Category != null)
             {
                 return Category;
@@ -40,17 +58,28 @@ namespace server.Services
                 throw new AppException("Category Not Found");
             }
         }
-
-        public Category GetBySlug(string slug)
+        public async Task<SubCategory> GetSubCategoryById(long id)
         {
-            var Category = _context.Categories.FirstOrDefault(x => x.Slug == slug);
-            if (Category != null)
+            var sub = await _context.SubCategories.FindAsync(id);
+            if (sub != null)
             {
-                return Category;
+                return sub;
             }
             else
             {
-                throw new AppException("Category Not Found");
+                throw new AppException("Sub Category Not Found");
+            }
+        }
+        public async Task<ChildCategory> GetChildCategoryById(long id)
+        {
+            var child = await _context.ChildCategories.FindAsync(id);
+            if (child != null)
+            {
+                return child;
+            }
+            else
+            {
+                throw new AppException("Child Category Not Found");
             }
         }
     }

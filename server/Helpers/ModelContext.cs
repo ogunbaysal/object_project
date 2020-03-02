@@ -18,6 +18,7 @@ namespace server.Helpers
         
         public DbSet<Category> Categories {get; set;}
         public DbSet<SubCategory> SubCategories {get; set;}
+        public DbSet<ChildCategory> ChildCategories { get; set; }
 
         public DbSet<District> Districts { get; set; }
         public DbSet<Province> Provinces { get; set; }

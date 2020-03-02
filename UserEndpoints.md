@@ -1,10 +1,10 @@
 ### User Endpoints
 
-## Authorize : `POST /api//user/authenticate/`
+## Authorize : `POST /api/user/authenticate/`
 
 # Used to collect a token for a registered user
 
-**URL** : `/api/login/`
+**URL** : `/api//user/authenticate/`
 
 **Method** : `POST`
 

@@ -14,7 +14,7 @@ namespace server.Models.Order
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long BasketId { get; set; }
         public long ProductPropertId { get; set; }
-        public Product.ProductProperty ProductPropery { get; set; }
+        public Product.ProductProperty ProductProperty { get; set; }
 
         public long UserId { get; set; }
         public User.User User { get; set; }

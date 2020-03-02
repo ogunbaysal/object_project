@@ -22,13 +22,14 @@ namespace server.Controllers
         }
         [AllowAnonymous]
         [HttpGet("all")]
-        public ActionResult<Category> GetCategories()
+        public async Task<ActionResult<ICollection<Category>>> GetCategories()
         {
             try
             {
-                var categories = _service.GetAll();
+                var categories = await _service.GetAll();
                 return Ok(categories);
-            }catch(AppException ex)
+            }
+            catch(AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }

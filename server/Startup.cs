@@ -41,7 +41,10 @@ namespace serber
         {
             services.AddDbContext<ModelContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:apidb"]));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddCors();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // configure strongly typed settings objects
