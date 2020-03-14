@@ -18,7 +18,8 @@ namespace server.Controllers
         public BasketController(IBasketService service)
         {
             _basketService = service;
-            loggedUserId = Convert.ToInt32(HttpContext.User.Claims.First(x => x.Type == "Id"));
+            var id = HttpContext.User.Claims.First(x => x.Type == "Id");
+            loggedUserId = Convert.ToInt32(id);
         }
         [HttpGet("all")]
         public IActionResult Index()

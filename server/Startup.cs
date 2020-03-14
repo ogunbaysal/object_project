@@ -21,6 +21,7 @@ using server.Services;
 using server.Models.Category;
 using Microsoft.AspNetCore.Identity;
 using Sieve.Services;
+using server.Repositories.Interface;
 
 namespace serber
 {
@@ -79,8 +80,20 @@ namespace serber
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
+            foreach(var item in this.GetRepositories())
+            {
+                Type type = Type.GetType(item);
+                services.AddScoped(type);
+            }
         }
-
+        public List<string> GetRepositories()
+        {
+            return AppDomain.CurrentDomain
+                .GetAssemblies()
+                .SelectMany(x => x.GetTypes())
+                .Where(x => typeof(IRepository<>).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                .Select(x => x.FullName).ToList();
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context, IServiceProvider serviceProvider)
         {

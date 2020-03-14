@@ -34,6 +34,7 @@ namespace server.Services
                 .ToListAsync();
             foreach(var item in list)
             {
+
                 foreach(var sub in item.SubCategories)
                 {
                     var childs = await _context.ChildCategories

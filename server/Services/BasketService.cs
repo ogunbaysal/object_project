@@ -37,13 +37,13 @@ namespace server.Services
         public void AddItem(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertId == ProductPropertId);
+            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertyId == ProductPropertId);
             if(isExists == null)
             {
                 Basket basket = new Basket()
                 {
                     UserId = UserId,
-                    ProductPropertId = ProductPropertId,
+                    ProductPropertyId = ProductPropertId,
                     Count = Count,
                     Status = BasketStatus.ACTIVE
                 };
@@ -59,7 +59,7 @@ namespace server.Services
         public void RemoveItem(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertId == ProductPropertId);
+            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertyId == ProductPropertId);
             if(isExists != null)
             {
                 if(isExists.Count - Count <= 0)

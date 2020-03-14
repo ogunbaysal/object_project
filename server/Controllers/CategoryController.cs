@@ -34,5 +34,19 @@ namespace server.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+        [AllowAnonymous]
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Category>> GetOne(long id)
+        {
+            try
+            {
+                var category = await _service.GetCategoryById(id);
+                return Ok(category);
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
     }
 }
