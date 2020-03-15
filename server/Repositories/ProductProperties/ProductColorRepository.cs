@@ -36,7 +36,11 @@ namespace server.Repositories.ProductProperties
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<ProductColor>> ListAsync(System.Linq.Expressions.Expression<Func<ProductColor, bool>> query)
+        {
+            var items = _context.ProductColors.Where(query).AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(ProductColor item)
         {
             _context.ProductColors.Remove(item);

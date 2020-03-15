@@ -37,7 +37,15 @@ namespace server.Repositories.Orders
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<Order>> ListAsync(System.Linq.Expressions.Expression<Func<Order, bool>> query)
+        {
+            var items = _context.Orders
+                .Where(query)
+                .Include(x=>x.OrderDetails)
+                .ThenInclude(x => x.Select(y => y.ProductProperty))
+                .AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(Order item)
         {
             _context.Orders.Remove(item);

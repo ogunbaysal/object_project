@@ -42,7 +42,11 @@ namespace server.Repositories.Products
             return await result.ToListAsync();
 
         }
-
+        public async Task<IEnumerable<Product>> ListAsync(System.Linq.Expressions.Expression<Func<Product, bool>> query)
+        {
+            var items = _context.Products.Where(query).Include(x => x.ChildCategory).AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(Product product)
         {
             _context.Products.Remove(product);

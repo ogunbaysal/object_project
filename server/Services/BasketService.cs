@@ -1,5 +1,6 @@
 ﻿using server.Helpers;
 using server.Models.Order;
+using server.Repositories.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,22 +10,22 @@ namespace server.Services
 {
     public interface IBasketService
     {
-        public ICollection<Basket> GetUserBasket(long UserId);
-        public void AddItem(long UserId, long ProductPropertId, int Count);
+        public Task<IEnumerable<Basket>> GetUserBasketAsync(long UserId);
+        public Task AddItemAsync(long UserId, long ProductPropertId, int Count);
         public void RemoveItem(long UserId, long ProductPropertId, int Count);
-        public void Clear(long UserId);
+        public Task ClearAsync(long UserId);
     }
     public class BasketService : IBasketService
     {
-        private readonly ModelContext _context;
-        public BasketService(ModelContext context)
+        private readonly BasketRepository _basketRepository;
+        public BasketService(BasketRepository basketRepository)
         {
-            _context = context;
+            this._basketRepository = basketRepository;
         }
 
-        public ICollection<Basket> GetUserBasket(long UserId)
+        public async Task<IEnumerable<Basket>> GetUserBasketAsync(long UserId)
         {
-            var list = _context.Baskets.Where(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE).ToList();
+            var list = await _basketRepository.GetUserBasket(UserId); 
             if (list.Any())
             {
                 return list;
@@ -34,12 +35,14 @@ namespace server.Services
                 throw new AppException("No User Basket Found");
             }
         }
-        public void AddItem(long UserId, long ProductPropertId, int Count)
+        public async Task AddItemAsync(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertyId == ProductPropertId);
+            var userBasket = _basketRepository.GetUserBasket(UserId);
+            var isExists = userBasket.Result.First(x => x.ProductPropertyId == ProductPropertId && x.Status == BasketStatus.ACTIVE);
             if(isExists == null)
             {
+                // if the basket item does not exist create new one and add it.
                 Basket basket = new Basket()
                 {
                     UserId = UserId,
@@ -47,46 +50,45 @@ namespace server.Services
                     Count = Count,
                     Status = BasketStatus.ACTIVE
                 };
-                _context.Baskets.Add(basket);
+                await _basketRepository.AddAsync(basket);
             }
             else
             {
+                // increase the count of item if the basket item exists and update it
                 isExists.Count += Count;
-                _context.Baskets.Update(isExists);
+                _basketRepository.Update(isExists);
             }
-            _context.SaveChanges();
         }
         public void RemoveItem(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var isExists = _context.Baskets.First(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE && x.ProductPropertyId == ProductPropertId);
-            if(isExists != null)
+            var userBasket = _basketRepository.GetUserBasket(UserId);
+            var isExists = userBasket.Result.First(x => x.ProductPropertyId == ProductPropertId && x.Status == BasketStatus.ACTIVE);
+            if (isExists != null)
             {
                 if(isExists.Count - Count <= 0)
                 {
-                    isExists.Status = BasketStatus.PASSIVE;
+                    isExists.Status = BasketStatus.DELETED;
                 }
                 else
                 {
                     isExists.Count -= Count;
                 }
-                _context.Baskets.Update(isExists);
-                _context.SaveChanges();
+                _basketRepository.Update(isExists);
             }
             else
             {
                 throw new AppException("No basket found");
             }
         }
-        public void Clear(long UserId)
+        public async Task ClearAsync(long UserId)
         {
-            var list = _context.Baskets.Where(x => x.UserId == UserId && x.Status == BasketStatus.ACTIVE).ToList();
+            var list = await _basketRepository.ListAsync(x=>x.Status == BasketStatus.ACTIVE && x.UserId == UserId);
             foreach(var item in list)
             {
-                item.Status = BasketStatus.PASSIVE;
-                _context.Baskets.Update(item);
+                item.Status = BasketStatus.DELETED;
+                _basketRepository.Update(item);
             }
-            _context.SaveChanges();
         }
     }
 }

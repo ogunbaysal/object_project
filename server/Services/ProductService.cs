@@ -8,62 +8,39 @@ using Microsoft.EntityFrameworkCore;
 using Sieve.Models;
 using Sieve.Services;
 using System.Collections;
+using server.Repositories.Products;
 
 namespace server.Services
 {
     public interface IProductService
     {
-        IEnumerable<object> GetAll(SieveModel sieveModel);
-        Task<Product> GetById(long id);
-        Task AddProduct(Product product);
-        Task AddProductProperty(ProductProperty item);
-        Task<ICollection<object>> GetProductProperties(long ProductId);
+        Task<IEnumerable<Product>> GetAllAsync(SieveModel sieveModel);
+        Task<Product> GetByIdAsync(long id);
+        Task AddProductAsync(Product product);
+        Task AddProductPropertyAsync(ProductProperty item);
+        Task<IEnumerable<object>> GetProductPropertiesAsync(long ProductId);
     }
     public class ProductService : IProductService
     {
-        private readonly ModelContext _context;
-        private SieveProcessor _sieveProcessor;
+        private readonly ProductRepository _productRepository;
+        private readonly ProductPropertyRepository _productPropertyRepository;
 
-        public ProductService(ModelContext context, SieveProcessor processor)
+        public ProductService(ProductRepository productRepository,  ProductPropertyRepository productPropertyRepository)
         {
-            _context = context;
-            _sieveProcessor = processor;
+            _productRepository = productRepository;
+            _productPropertyRepository = productPropertyRepository;
         }
-        public IEnumerable<object> GetAll(SieveModel sieveModel)
+        public async Task<IEnumerable<Product>> GetAllAsync(SieveModel sieveModel)
         {
-            var result = _context.Products
-                .Include(x => x.ChildCategory)
-                .Select(x =>
-                    new
-                    {
-                        ProductId = x.ProductId,
-                        ChildCategory = new
-                        {
-                            ChildCategoryId = x.ChildCategory.ChildCategoryId,
-                            Title = x.ChildCategory.Title,
-                            Slug = x.ChildCategory.Slug
-                        },
-                        Title = x.Title,
-                        Description = x.Description,
-                        DateCreated = x.DateCreated,
-                        DateModified = x.DateModified
-                    }
-                 )
-                .AsNoTracking();
-            result = _sieveProcessor.Apply(sieveModel, result);
-            
+            var list = await _productRepository.ListAsync(sieveModel);
+
+            var result = list
+                .Where(x => x.Status == ProductStatus.ACTIVE);
             return result;
         }
-        public async Task<ICollection<object>> GetProductProperties(long ProductId)
+        public async Task<IEnumerable<object>> GetProductPropertiesAsync(long ProductId)
         {
-            var properties = await _context.ProductProperties
-                    .Where(x => x.ProductId == ProductId)
-                    .Include(x => x.ProductColor)
-                    .Include(x => x.ProductHeight)
-                    .Include(x => x.ProductSize)
-                    .Include(x => x.ProductTheme)
-                    .Include(x => x.ProductTrotter)
-                    .ToListAsync();
+            var properties = await _productPropertyRepository.ListAsync(x => x.ProductId == ProductId);
             var items = new List<object>();
             foreach (var property in properties)
             {
@@ -108,24 +85,21 @@ namespace server.Services
                     Trotter = Trotter
                 });
             }
-            return items.ToArray();
+            return items.ToList();
         }
-        public async Task<Product> GetById(long id)
+        public async Task<Product> GetByIdAsync(long id)
         {
-            var Product = await _context.Products.FindAsync(id);
-            if (Product != null) return Product;
+            var Product = await _productRepository.FindByIdAsync(id);
+            if (Product != null && Product.Status == ProductStatus.ACTIVE) return Product;
             throw new AppException("Product Not Found");
         }
-        public async Task AddProduct(Product product) 
+        public async Task AddProductAsync(Product product) 
         {
-
-            _context.Products.Add(product);
-            await _context.SaveChangesAsync();
+            await _productRepository.AddAsync(product);
         }
-        public async Task AddProductProperty(ProductProperty item)
+        public async Task AddProductPropertyAsync(ProductProperty item)
         {
-            _context.ProductProperties.Add(item);
-            await _context.SaveChangesAsync();
+            await _productPropertyRepository.AddAsync(item);
         }
 
     }

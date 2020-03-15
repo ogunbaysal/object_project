@@ -51,6 +51,19 @@ namespace server.Repositories.Products
             result = _sieveProcessor.Apply(query, result);
             return await result.ToListAsync();
         }
+        public async Task<IEnumerable<ProductProperty>> ListAsync(System.Linq.Expressions.Expression<Func<ProductProperty, bool>> query)
+        {
+            var items = _context.ProductProperties
+                .Where(query)
+                .Include(x => x.ProductSizeId)
+                .Include(x => x.ProductThemeId)
+                .Include(x => x.ProductTrotterId)
+                .Include(x => x.ProductId)
+                .Include(x => x.ProductHeightId)
+                .Include(x => x.ProductColorId)
+                .AsNoTracking();
+            return await items.ToListAsync();
+        }
 
         public void Remove(ProductProperty product)
         {

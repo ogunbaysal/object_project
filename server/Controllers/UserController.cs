@@ -123,7 +123,7 @@ namespace server.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _userService.Delete(id);
+            _userService.DeleteAsync(id);
             return Ok();
         }
     }

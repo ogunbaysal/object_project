@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using server.Helpers;
 using server.Models.Category;
+using server.Repositories.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,39 +18,34 @@ namespace server.Services
     }
     public class CategoryService : ICategoryService
     {
-        private readonly ModelContext _context;
-
-        public CategoryService(ModelContext context)
+        private readonly CategoryRepository _categoryRepository;
+        private readonly SubCategoryRepository _subCategoryRepository;
+        private readonly ChildCategoryRepository _childCategoryRepository;
+        public CategoryService(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository, ChildCategoryRepository childCategoryRepository)
         {
-            _context = context;
+            _categoryRepository = categoryRepository;
+            _subCategoryRepository = subCategoryRepository;
+            _childCategoryRepository = childCategoryRepository;
         }
         public async Task<IEnumerable<Category>> GetAll()
         {
 
-            var list = await _context.Categories
-                .AsNoTracking()
-                .AsQueryable()
-                .Where(x => x.Status == CategoryStatus.ACTIVE)
-                .Include(x => x.SubCategories)
-                .ToListAsync();
+            var list = await _categoryRepository.ListAsync(x => x.Status == CategoryStatus.ACTIVE);
             foreach(var item in list)
             {
-
+                var subCategories = await _subCategoryRepository.ListAsync(x => x.ParentCategoryId == item.CategoryId && x.Status == CategoryStatus.ACTIVE);
+                item.SubCategories = subCategories.ToList();
                 foreach(var sub in item.SubCategories)
                 {
-                    var childs = await _context.ChildCategories
-                        .AsNoTracking()
-                        .AsQueryable()
-                        .Where(x => x.SubCategoryId == sub.SubCategoryId && x.Status == CategoryStatus.ACTIVE)
-                        .ToListAsync();
-                    sub.ChildCategories = childs;
+                    var childCategories = await _childCategoryRepository.ListAsync(x => x.SubCategoryId == sub.SubCategoryId && x.Status == CategoryStatus.ACTIVE);
+                    sub.ChildCategories = childCategories.ToList();
                 }
             }
             return list;
         }
         public async Task<Category> GetCategoryById(long id)
         {
-            var Category = await _context.Categories.FindAsync(id);
+            var Category = await _categoryRepository.FindByIdAsync(id);
             if (Category != null)
             {
                 return Category;
@@ -61,7 +57,7 @@ namespace server.Services
         }
         public async Task<SubCategory> GetSubCategoryById(long id)
         {
-            var sub = await _context.SubCategories.FindAsync(id);
+            var sub = await _subCategoryRepository.FindByIdAsync(id);
             if (sub != null)
             {
                 return sub;
@@ -73,7 +69,7 @@ namespace server.Services
         }
         public async Task<ChildCategory> GetChildCategoryById(long id)
         {
-            var child = await _context.ChildCategories.FindAsync(id);
+            var child = await _childCategoryRepository.FindByIdAsync(id);
             if (child != null)
             {
                 return child;

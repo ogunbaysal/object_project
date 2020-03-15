@@ -29,6 +29,7 @@ namespace server.Models.Product
         [Sieve(CanFilter = true)]
         public string Description { get; set; }
         [Sieve(CanFilter = true, CanSort = true, Name = "created")]
+        public ProductStatus Status { get; set; } = ProductStatus.ACTIVE;
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         [Sieve(CanFilter = true, CanSort = true, Name = "modified")]
         public DateTime DateModified { get; set; }

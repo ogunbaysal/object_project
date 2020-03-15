@@ -1,5 +1,6 @@
 ﻿using server.Helpers;
 using server.Models.ProductProperty;
+using server.Repositories.ProductProperties;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,63 +10,75 @@ namespace server.Services
 {
     public interface IProductPropertyService
     {
-        Task<ProductColor> GetColor(long ColorId);
-        Task AddColor(ProductColor color);
-        Task RemoveColor(long ColorId);
-        Task UpdateColor(long Id, ProductColor item);
+        Task<ProductColor> GetColorAsync(long ColorId);
+        Task AddColorAsync(ProductColor color);
+        Task RemoveColorAsync(long ColorId);
+        Task UpdateColorAsync(long Id, ProductColor item);
 
-        Task<ProductHeight> GetHeight(long Id);
-        Task AddHeight(ProductHeight item);
-        Task RemoveHeight(long Id);
-        Task UpdateHeight(long Id, ProductHeight item);
+        Task<ProductHeight> GetHeightAsync(long Id);
+        Task AddHeightAsync(ProductHeight item);
+        Task RemoveHeightAsync(long Id);
+        Task UpdateHeightAsync(long Id, ProductHeight item);
 
-        Task<ProductSize> GetSize(long Id);
-        Task AddSize(ProductSize item);
-        Task RemoveSize(long Id);
-        Task UpdateSize(long Id, ProductSize item);
+        Task<ProductSize> GetSizeAsync(long Id);
+        Task AddSizeAsync(ProductSize item);
+        Task RemoveSizeAsync(long Id);
+        Task UpdateSizeAsync(long Id, ProductSize item);
 
-        Task<ProductTheme> GetTheme(long Id);
-        Task AddTheme(ProductTheme item);
-        Task RemoveTheme(long Id);
-        Task UpdateTheme(long Id, ProductTheme item);
+        Task<ProductTheme> GetThemeAsync(long Id);
+        Task AddThemeAsync(ProductTheme item);
+        Task RemoveThemeAsync(long Id);
+        Task UpdateThemeAsync(long Id, ProductTheme item);
 
-        Task<ProductTrotter> GetTrotter(long Id);
-        Task AddTrotter(ProductTrotter item);
-        Task RemoveTrotter(long Id);
-        Task UpdateTrotter(long Id, ProductTrotter item);
+        Task<ProductTrotter> GetTrotterAsync(long Id);
+        Task AddTrotterAsync(ProductTrotter item);
+        Task RemoveTrotterAsync(long Id);
+        Task UpdateTrotterAsync(long Id, ProductTrotter item);
     }
     public class ProductPropertyService : IProductPropertyService
     {
-        private readonly ModelContext _context;
+        private readonly ProductColorRepository _productColorRepository;
+        private readonly ProductHeightRepository _productHeightRepository;
+        private readonly ProductSizeRepository _productSizeRepository;
+        private readonly ProductThemeRepository _productThemeRepository;
+        private readonly ProductTrotterRepository _productTrotterRepository;
 
-        public ProductPropertyService(ModelContext context)
+        public ProductPropertyService(
+            ProductColorRepository productColorRepository,
+            ProductHeightRepository productHeightRepository,
+            ProductSizeRepository productSizeRepository,
+            ProductThemeRepository productThemeRepository,
+            ProductTrotterRepository productTrotterRepository
+            )
         {
-            _context = context;
+            _productColorRepository = productColorRepository;
+            _productHeightRepository = productHeightRepository;
+            _productSizeRepository = productSizeRepository;
+            _productThemeRepository = productThemeRepository;
+            _productTrotterRepository = productTrotterRepository;
         }
         #region Color Services
-        public async Task AddColor(ProductColor color)
+        public async Task AddColorAsync(ProductColor color)
         {
-            _context.ProductColors.Add(color);
-            await _context.SaveChangesAsync();
+            await _productColorRepository.AddAsync(color);
         }
-        public async Task RemoveColor(long ColorId)
+        public async Task RemoveColorAsync(long ColorId)
         {
-            var item = _context.ProductColors.First(x => x.ProductColorId == ColorId && x.Status != PropertyStatus.DELETED);
-            if(item != null)
+            var item = await _productColorRepository.FindByIdAsync(ColorId);
+            if(item != null && item.Status != PropertyStatus.DELETED)
             {
                 item.Status = PropertyStatus.DELETED;
-                _context.ProductColors.Update(item);
-                await _context.SaveChangesAsync();
+                _productColorRepository.Update(item);
             }
             else
             {
                 throw new AppException("Color is not found");
             }
         }
-        public async Task<ProductColor> GetColor(long ColorId)
+        public async Task<ProductColor> GetColorAsync(long ColorId)
         {
-            var item = _context.ProductColors.First(x => x.ProductColorId == ColorId && x.Status == PropertyStatus.ACTIVE);
-            if(item != null)
+            var item = (await _productColorRepository.FindByIdAsync(ColorId));
+            if(item != null && item.Status == PropertyStatus.ACTIVE)
             {
                 return item;
             }
@@ -74,17 +87,16 @@ namespace server.Services
                 throw new AppException("Color is not found");
             }
         }
-        public async Task UpdateColor(long Id, ProductColor item)
+        public async Task UpdateColorAsync(long Id, ProductColor item)
         {
-            var obj = _context.ProductColors.First(x => x.ProductColorId == Id);
+            var obj = await _productColorRepository.FindByIdAsync(Id);
             if(obj != null)
             {
                 obj.Url = item.Url != null ? item.Url : obj.Url;
                 obj.Tag = item.Tag != null ? item.Tag : obj.Tag;
                 obj.Status = item.Status != null ? item.Status : obj.Status;
                 obj.DateModified = DateTime.UtcNow;
-                _context.ProductColors.Update(obj);
-                await _context.SaveChangesAsync();
+                _productColorRepository.Update(obj);
             }
             else
             {
@@ -93,29 +105,27 @@ namespace server.Services
         }
         #endregion
         #region Height Services
-        public async Task AddHeight(ProductHeight item)
+        public async Task AddHeightAsync(ProductHeight item)
         {
-            _context.ProductHeights.Add(item);
-            await _context.SaveChangesAsync();
+            await _productHeightRepository.AddAsync(item);
         }
-        public async Task RemoveHeight(long Id)
+        public async Task RemoveHeightAsync(long Id)
         {
-            var item = _context.ProductHeights.First(x => x.ProductHeightId == Id && x.Status != PropertyStatus.DELETED);
-            if (item != null)
+            var item = await _productHeightRepository.FindByIdAsync(Id);
+            if (item != null && item.Status != PropertyStatus.DELETED)
             {
                 item.Status = PropertyStatus.DELETED;
-                _context.ProductHeights.Update(item);
-                await _context.SaveChangesAsync();
+                _productHeightRepository.Update(item);
             }
             else
             {
                 throw new AppException("Height is not found");
             }
         }
-        public async Task<ProductHeight> GetHeight(long Id)
+        public async Task<ProductHeight> GetHeightAsync(long Id)
         {
-            var item = _context.ProductHeights.First(x => x.ProductHeightId == Id && x.Status == PropertyStatus.ACTIVE);
-            if (item != null)
+            var item = await _productHeightRepository.FindByIdAsync(Id);
+            if (item != null && item.Status == PropertyStatus.ACTIVE)
             {
                 return item;
             }
@@ -124,16 +134,15 @@ namespace server.Services
                 throw new AppException("Height is not found");
             }
         }
-        public async Task UpdateHeight(long Id, ProductHeight item)
+        public async Task UpdateHeightAsync(long Id, ProductHeight item)
         {
-            var obj = _context.ProductHeights.First(x => x.ProductHeightId == Id);
+            var obj = await _productHeightRepository.FindByIdAsync(Id);
             if (obj != null)
             {
                 obj.Title = item.Title != null ? item.Title : obj.Title;
                 obj.Status = item.Status != null ? item.Status : obj.Status;
                 obj.DateModified = DateTime.UtcNow;
-                _context.ProductHeights.Update(obj);
-                await _context.SaveChangesAsync();
+                _productHeightRepository.Update(obj);
             }
             else
             {
@@ -143,29 +152,27 @@ namespace server.Services
 
         #endregion
         #region Size Services
-        public async Task AddSize(ProductSize item)
+        public async Task AddSizeAsync(ProductSize item)
         {
-            _context.ProductSizes.Add(item);
-            await _context.SaveChangesAsync();
+            await _productSizeRepository.AddAsync(item);
         }
-        public async Task RemoveSize(long Id)
+        public async Task RemoveSizeAsync(long Id)
         {
-            var item = _context.ProductSizes.First(x => x.ProductSizeId == Id && x.Status != PropertyStatus.DELETED);
-            if (item != null)
+            var item = await _productSizeRepository.FindByIdAsync(Id);
+            if (item != null && item.Status != PropertyStatus.DELETED)
             {
                 item.Status = PropertyStatus.DELETED;
-                _context.ProductSizes.Update(item);
-                await _context.SaveChangesAsync();
+                _productSizeRepository.Update(item);
             }
             else
             {
                 throw new AppException("Size is not found");
             }
         }
-        public async Task<ProductSize> GetSize(long Id)
+        public async Task<ProductSize> GetSizeAsync(long Id)
         {
-            var item = _context.ProductSizes.First(x => x.ProductSizeId == Id && x.Status == PropertyStatus.ACTIVE);
-            if (item != null)
+            var item = await _productSizeRepository.FindByIdAsync(Id);
+            if (item != null && item.Status == PropertyStatus.ACTIVE)
             {
                 return item;
             }
@@ -174,16 +181,15 @@ namespace server.Services
                 throw new AppException("Size is not found");
             }
         }
-        public async Task UpdateSize(long Id, ProductSize item)
+        public async Task UpdateSizeAsync(long Id, ProductSize item)
         {
-            var obj = _context.ProductSizes.First(x => x.ProductSizeId == Id);
+            var obj = await _productSizeRepository.FindByIdAsync(Id);
             if (obj != null)
             {
                 obj.Title = item.Title != null ? item.Title : obj.Title;
                 obj.Status = item.Status != null ? item.Status : obj.Status;
                 obj.DateModified = DateTime.UtcNow;
-                _context.ProductSizes.Update(obj);
-                await _context.SaveChangesAsync();
+                _productSizeRepository.Update(obj);
             }
             else
             {
@@ -192,29 +198,27 @@ namespace server.Services
         }
         #endregion
         #region Theme Services
-        public async Task AddTheme(ProductTheme item)
+        public async Task AddThemeAsync(ProductTheme item)
         {
-            _context.ProductThemes.Add(item);
-            await _context.SaveChangesAsync();
+            await _productThemeRepository.AddAsync(item);
         }
-        public async Task RemoveTheme(long Id)
+        public async Task RemoveThemeAsync(long Id)
         {
-            var item = _context.ProductThemes.First(x => x.ProductThemeId == Id && x.Status != PropertyStatus.DELETED);
-            if (item != null)
+            var item = await _productThemeRepository.FindByIdAsync(Id);
+            if (item != null && item.Status != PropertyStatus.DELETED)
             {
                 item.Status = PropertyStatus.DELETED;
-                _context.ProductThemes.Update(item);
-                await _context.SaveChangesAsync();
+                _productThemeRepository.Update(item);
             }
             else
             {
                 throw new AppException("Theme is not found");
             }
         }
-        public async Task<ProductTheme> GetTheme(long Id)
+        public async Task<ProductTheme> GetThemeAsync(long Id)
         {
-            var item = _context.ProductThemes.First(x => x.ProductThemeId == Id && x.Status == PropertyStatus.ACTIVE);
-            if (item != null)
+            var item = await _productThemeRepository.FindByIdAsync(Id);
+            if (item != null && item.Status == PropertyStatus.ACTIVE)
             {
                 return item;
             }
@@ -223,16 +227,15 @@ namespace server.Services
                 throw new AppException("Theme is not found");
             }
         }
-        public async Task UpdateTheme(long Id, ProductTheme item)
+        public async Task UpdateThemeAsync(long Id, ProductTheme item)
         {
-            var obj = _context.ProductThemes.First(x => x.ProductThemeId == Id);
+            var obj = await _productThemeRepository.FindByIdAsync(Id);
             if (obj != null)
             {
                 obj.Title = item.Title != null ? item.Title : obj.Title;
                 obj.Status = item.Status != null ? item.Status : obj.Status;
                 obj.DateModified = DateTime.UtcNow;
-                _context.ProductThemes.Update(obj);
-                await _context.SaveChangesAsync();
+                _productThemeRepository.Update(obj);
             }
             else
             {
@@ -241,29 +244,27 @@ namespace server.Services
         }
         #endregion
         #region Trotter Services
-        public async Task AddTrotter(ProductTrotter item)
+        public async Task AddTrotterAsync(ProductTrotter item)
         {
-            _context.ProductTrotters.Add(item);
-            await _context.SaveChangesAsync();
+            await _productTrotterRepository.AddAsync(item);
         }
-        public async Task RemoveTrotter(long Id)
+        public async Task RemoveTrotterAsync(long Id)
         {
-            var item = _context.ProductTrotters.First(x => x.ProductTrotterId == Id && x.Status != PropertyStatus.DELETED);
-            if (item != null)
+            var item = await _productTrotterRepository.FindByIdAsync(Id);
+            if (item != null && item.Status != PropertyStatus.DELETED)
             {
                 item.Status = PropertyStatus.DELETED;
-                _context.ProductTrotters.Update(item);
-                await _context.SaveChangesAsync();
+                _productTrotterRepository.Update(item);
             }
             else
             {
                 throw new AppException("Trotter is not found");
             }
         }
-        public async Task<ProductTrotter> GetTrotter(long Id)
+        public async Task<ProductTrotter> GetTrotterAsync(long Id)
         {
-            var item = _context.ProductTrotters.First(x => x.ProductTrotterId == Id && x.Status == PropertyStatus.ACTIVE);
-            if (item != null)
+            var item = await _productTrotterRepository.FindByIdAsync(Id);
+            if (item != null && item.Status == PropertyStatus.ACTIVE)
             {
                 return item;
             }
@@ -272,16 +273,15 @@ namespace server.Services
                 throw new AppException("Trotter is not found");
             }
         }
-        public async Task UpdateTrotter(long Id, ProductTrotter item)
+        public async Task UpdateTrotterAsync(long Id, ProductTrotter item)
         {
-            var obj = _context.ProductTrotters.First(x => x.ProductTrotterId == Id);
+            var obj = await _productTrotterRepository.FindByIdAsync(Id);
             if (obj != null)
             {
                 obj.Title = item.Title != null ? item.Title : obj.Title;
                 obj.Status = item.Status != null ? item.Status : obj.Status;
                 obj.DateModified = DateTime.UtcNow;
-                _context.ProductTrotters.Update(obj);
-                await _context.SaveChangesAsync();
+                _productTrotterRepository.Update(obj);
             }
             else
             {

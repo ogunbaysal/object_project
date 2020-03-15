@@ -37,7 +37,14 @@ namespace server.Repositories.Addresses
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<District>> ListAsync(System.Linq.Expressions.Expression<Func<District, bool>> query)
+        {
+            var items = _context.Districts
+                .Where(query)
+                .Include(x => x.ProvinceId)
+                .AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(District item)
         {
             _context.Districts.Remove(item);

@@ -10,6 +10,7 @@ namespace server.Repositories.Interface
     public interface IRepository <T>
     {
         Task<IEnumerable<T>> ListAsync(SieveModel query);
+        Task<IEnumerable<T>> ListAsync(System.Linq.Expressions.Expression<Func<T, bool>> query);
         Task AddAsync(T item);
         Task<T> FindByIdAsync(long id);
         void Update(T item);

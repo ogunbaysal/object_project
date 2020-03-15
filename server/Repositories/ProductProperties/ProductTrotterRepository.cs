@@ -36,7 +36,11 @@ namespace server.Repositories.ProductProperties
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<ProductTrotter>> ListAsync(System.Linq.Expressions.Expression<Func<ProductTrotter, bool>> query)
+        {
+            var items = _context.ProductTrotters.Where(query).AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(ProductTrotter item)
         {
             _context.ProductTrotters.Remove(item);

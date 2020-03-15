@@ -36,7 +36,11 @@ namespace server.Repositories
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<User>> ListAsync(System.Linq.Expressions.Expression<Func<User, bool>> query)
+        {
+            var items = _context.Users.Where(query).AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(User item)
         {
             _context.Users.Remove(item);

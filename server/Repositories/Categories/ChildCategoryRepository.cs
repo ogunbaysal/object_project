@@ -39,7 +39,14 @@ namespace server.Repositories.Categories
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<ChildCategory>> ListAsync(System.Linq.Expressions.Expression<Func<ChildCategory, bool>> query)
+        {
+            var items = _context.ChildCategories
+                .Where(query)
+                .Include(x=>x.SubCategoryId)
+                .AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(ChildCategory item)
         {
             _context.ChildCategories.Remove(item);

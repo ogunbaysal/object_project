@@ -36,7 +36,11 @@ namespace server.Repositories.ProductProperties
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
         }
-
+        public async Task<IEnumerable<ProductHeight>> ListAsync(System.Linq.Expressions.Expression<Func<ProductHeight, bool>> query)
+        {
+            var items = _context.ProductHeights.Where(query).AsNoTracking();
+            return await items.ToListAsync();
+        }
         public void Remove(ProductHeight item)
         {
             _context.ProductHeights.Remove(item);

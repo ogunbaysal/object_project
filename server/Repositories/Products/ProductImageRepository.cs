@@ -39,6 +39,11 @@ namespace server.Repositories.Products
             result = _sieveProcessor.Apply(query, result);
             return await result.ToListAsync();
         }
+        public async Task<IEnumerable<ProductImage>> ListAsync(System.Linq.Expressions.Expression<Func<ProductImage, bool>> query)
+        {
+            var items = _context.ProductImages.Where(query).AsNoTracking();
+            return await items.ToListAsync();
+        }
 
         public void Remove(ProductImage item)
         {

@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using server.Helpers;
 using server.Models.User;
+using server.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,24 +17,24 @@ namespace server.Services
     public interface IUserService
     {
         User Authenticate(string username, string password);
-        IEnumerable<User> GetAll();
+        Task<IEnumerable<User>> GetAll();
         Task<User> GetById(long id);
         Task<User> Create(User user, string Password);
         void Update(User user, string password = null);
-        void Delete(int id);
+        Task DeleteAsync(int id);
     }
     public class UserService : IUserService
     {
         private readonly ModelContext _context;
         private readonly AppSettings _appSettings;
-        public UserService(ModelContext context, IOptions<AppSettings> appSettings)
+        private readonly UserRepository _userRepository;
+        public UserService(ModelContext context,UserRepository userRepository, IOptions<AppSettings> appSettings)
         {
             _context = context;
             _appSettings = appSettings.Value;
         }
         public User Authenticate(string username, string password)
         {
-
             var user = _context.Users.SingleOrDefault(user => user.Username == username);
             if (user == null) return null;
 
@@ -59,9 +60,9 @@ namespace server.Services
                 .Build();
             return token;
         }
-        public IEnumerable<User> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            return _context.Users;
+            return await _userRepository.ListAsync(x=>1==1);
         }
         private static string CreatePasswordHash(string password)
         {
@@ -86,8 +87,7 @@ namespace server.Services
             User.DateModified = DateTime.Now;
             User.Role = Role.User;
             User.Token = null;
-            _context.Users.Add(User);
-            await _context.SaveChangesAsync();
+            await _userRepository.AddAsync(User);
             return User;
         }
 
@@ -129,13 +129,12 @@ namespace server.Services
 
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _userRepository.FindByIdAsync(id);
             if (user != null)
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                _userRepository.Remove(user);
             }
             else
             {
@@ -145,7 +144,7 @@ namespace server.Services
 
         public async Task<User> GetById(long id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _userRepository.FindByIdAsync(id);
             if (user != null)
             {
                 return user;
