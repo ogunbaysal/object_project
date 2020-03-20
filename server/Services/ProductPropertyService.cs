@@ -1,5 +1,6 @@
 ﻿using server.Helpers;
 using server.Models.ProductProperty;
+using server.Repositories.Interface;
 using server.Repositories.ProductProperties;
 using System;
 using System.Collections.Generic;
@@ -37,18 +38,18 @@ namespace server.Services
     }
     public class ProductPropertyService : IProductPropertyService
     {
-        private readonly ProductColorRepository _productColorRepository;
-        private readonly ProductHeightRepository _productHeightRepository;
-        private readonly ProductSizeRepository _productSizeRepository;
-        private readonly ProductThemeRepository _productThemeRepository;
-        private readonly ProductTrotterRepository _productTrotterRepository;
+        private readonly IRepository<ProductColor> _productColorRepository;
+        private readonly IRepository<ProductHeight> _productHeightRepository;
+        private readonly IRepository<ProductSize> _productSizeRepository;
+        private readonly IRepository<ProductTheme> _productThemeRepository;
+        private readonly IRepository<ProductTrotter> _productTrotterRepository;
 
         public ProductPropertyService(
-            ProductColorRepository productColorRepository,
-            ProductHeightRepository productHeightRepository,
-            ProductSizeRepository productSizeRepository,
-            ProductThemeRepository productThemeRepository,
-            ProductTrotterRepository productTrotterRepository
+            IRepository<ProductColor> productColorRepository,
+            IRepository<ProductHeight> productHeightRepository,
+            IRepository<ProductSize> productSizeRepository,
+            IRepository<ProductTheme> productThemeRepository,
+            IRepository<ProductTrotter> productTrotterRepository
             )
         {
             _productColorRepository = productColorRepository;

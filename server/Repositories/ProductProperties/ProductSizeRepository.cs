@@ -20,6 +20,7 @@ namespace server.Repositories.ProductProperties
         public async Task AddAsync(ProductSize item)
         {
             await _context.ProductSizes.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ProductSize> FindByIdAsync(long id)
@@ -44,11 +45,14 @@ namespace server.Repositories.ProductProperties
         public void Remove(ProductSize item)
         {
             _context.ProductSizes.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(ProductSize item)
         {
             _context.ProductSizes.Update(item);
+            _context.SaveChanges();
+
         }
     }
 }

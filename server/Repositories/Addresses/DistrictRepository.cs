@@ -20,6 +20,7 @@ namespace server.Repositories.Addresses
         public async Task AddAsync(District item)
         {
             await _context.Districts.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<District> FindByIdAsync(long id)
@@ -48,11 +49,13 @@ namespace server.Repositories.Addresses
         public void Remove(District item)
         {
             _context.Districts.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(District item)
         {
             _context.Districts.Update(item);
+            _context.SaveChanges();
         }
     }
 }

@@ -22,14 +22,62 @@ namespace server.Controllers
         }
         [AllowAnonymous]
         [HttpGet("all")]
-        public async Task<ActionResult<ICollection<Category>>> GetCategories()
+        public async Task<ActionResult<ICollection<object>>> GetCategories()
         {
             try
             {
-                var categories = await _service.GetAll();
-                return Ok(categories);
+                var categories = await _service.GetCategoriesAsync();
+                var result = categories.Select(x => new
+                {
+                    Id = x.CategoryId,
+                    Title = x.Title,
+                    Slug = x.Slug
+                });
+                return Ok(result);
             }
             catch(AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [AllowAnonymous]
+        [HttpGet("subs/{id}")]
+        public async Task<ActionResult<ICollection<object>>> GetSubCategories(long id)
+        {
+            try
+            {
+                var categories = await _service.GetSubCategoriesAsync(id);
+                var result = categories.Select(x => new
+                {
+                    Id = x.SubCategoryId,
+                    Title = x.Title, 
+                    Slug = x.Slug,
+                    ParentCategoryId = x.ParentCategoryId,
+                });
+                return Ok(result);
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [AllowAnonymous]
+        [HttpGet("childs/{id}")]
+        public async Task<ActionResult<ICollection<object>>> GetChildCategories(long id)
+        {
+            try
+            {
+                var categories = await _service.GetChildCategoriesAsync(id);
+                var result = categories.Select(x => new
+                {
+                    Id = x.ChildCategoryId,
+                    Title = x.Title,
+                    Slug = x.Slug,
+                    ParentCategoryId = x.SubCategoryId,
+                });
+                return Ok(result);
+            }
+            catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
             }
@@ -40,7 +88,7 @@ namespace server.Controllers
         {
             try
             {
-                var category = await _service.GetCategoryById(id);
+                var category = await _service.GetCategoryByIdAsync(id);
                 return Ok(category);
             }
             catch (AppException ex)

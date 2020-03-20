@@ -22,15 +22,15 @@ namespace server.Controllers
             loggedUserId = Convert.ToInt32(id);
         }
         [HttpGet("all")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _basketService.GetUserBasket(this.loggedUserId);
+            var list = await _basketService.GetUserBasketAsync(this.loggedUserId);
             return Ok(list);
         }
         [HttpPost("add")]
-        public IActionResult AddItem([FromBody] BasketModel model)
+        public async Task<IActionResult> AddItem([FromBody] BasketModel model)
         {
-            _basketService.AddItem(loggedUserId, model.ProductPropertId, model.Count);
+            await _basketService.AddItemAsync(loggedUserId, model.ProductPropertId, model.Count);
             return Ok();
         }
         [HttpPost("remove")]
@@ -46,9 +46,9 @@ namespace server.Controllers
             return Ok();
         }
         [HttpGet("clear")]
-        public IActionResult Clear()
+        public async Task<IActionResult> Clear()
         {
-            _basketService.Clear(loggedUserId);
+            await _basketService.ClearAsync(loggedUserId);
             return Ok();
         }
 

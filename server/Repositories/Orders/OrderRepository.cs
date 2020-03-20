@@ -20,6 +20,7 @@ namespace server.Repositories.Orders
         public async Task AddAsync(Order item)
         {
             await _context.Orders.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Order> FindByIdAsync(long id)
@@ -49,11 +50,15 @@ namespace server.Repositories.Orders
         public void Remove(Order item)
         {
             _context.Orders.Remove(item);
+            _context.SaveChanges();
+
         }
 
         public void Update(Order item)
         {
             _context.Orders.Update(item);
+            _context.SaveChanges();
+
         }
     }
 }

@@ -22,8 +22,20 @@ using server.Models.Category;
 using Microsoft.AspNetCore.Identity;
 using Sieve.Services;
 using server.Repositories.Interface;
+using System.Reflection;
+using server.Models.Order;
+using server.Repositories.Orders;
+using server.Models.Address;
+using server.Repositories.Addresses;
+using server.Repositories.Categories;
+using server.Models.ProductProperty;
+using server.Repositories.ProductProperties;
+using server.Models.Product;
+using server.Repositories.Products;
+using server.Repositories;
+using Microsoft.OpenApi.Models;
 
-namespace serber
+namespace server
 {
     public class Startup
     {
@@ -47,6 +59,11 @@ namespace serber
                     options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
             services.AddCors();
+            services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mavi Api", Version = "v1" });
+            });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -80,19 +97,26 @@ namespace serber
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IOrderService, OrderService>();
-            foreach(var item in this.GetRepositories())
-            {
-                Type type = Type.GetType(item);
-                services.AddScoped(type);
-            }
-        }
-        public List<string> GetRepositories()
-        {
-            return AppDomain.CurrentDomain
-                .GetAssemblies()
-                .SelectMany(x => x.GetTypes())
-                .Where(x => typeof(IRepository<>).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-                .Select(x => x.FullName).ToList();
+
+            //repositories
+            services.AddScoped<IRepository<District>, DistrictRepository>();
+            services.AddScoped<IRepository<Province>, ProvinceRepository>();
+            services.AddScoped<IRepository<Category>, CategoryRepository>();
+            services.AddScoped<IRepository<ChildCategory>, ChildCategoryRepository>();
+            services.AddScoped<IRepository<SubCategory>, SubCategoryRepository>();
+            services.AddScoped<IRepository<Basket>, BasketRepository>();
+            services.AddScoped<IRepository<OrderDetail>, OrderDetailRepository>();
+            services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<ProductColor>, ProductColorRepository>();
+            services.AddScoped<IRepository<ProductHeight>, ProductHeightRepository>();
+            services.AddScoped<IRepository<ProductSize>, ProductSizeRepository>();
+            services.AddScoped<IRepository<ProductTheme>, ProductThemeRepository>();
+            services.AddScoped<IRepository<ProductTrotter>, ProductTrotterRepository>();
+            services.AddScoped<IRepository<ProductImage>, ProductImageRepository>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
+            services.AddScoped<IRepository<ProductProperty>, ProductPropertyRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ModelContext context, IServiceProvider serviceProvider)
@@ -133,6 +157,11 @@ namespace serber
             app.UseEndpoints(endpoints => endpoints.MapControllers());
 
             context.Database.EnsureCreated();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mavi API V1");
+            });
         }
     }
 }

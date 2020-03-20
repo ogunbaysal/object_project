@@ -50,11 +50,13 @@ namespace server.Repositories.Products
         public void Remove(Product product)
         {
             _context.Products.Remove(product);
+            _context.SaveChanges();
         }
 
         public void Update(Product product)
         {
             _context.Products.Update(product);
+            _context.SaveChanges();
         }
     }
 }

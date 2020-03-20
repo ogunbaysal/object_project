@@ -20,12 +20,12 @@ namespace server.Repositories.Categories
         public async Task AddAsync(ChildCategory item)
         {
             await _context.ChildCategories.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ChildCategory> FindByIdAsync(long id)
         {
             var item = await _context.ChildCategories
-                .Include(x=>x.SubCategoryId)
                 .AsNoTracking()
                 .FirstAsync(x => x.ChildCategoryId == id);
             return item;
@@ -34,7 +34,6 @@ namespace server.Repositories.Categories
         public async Task<IEnumerable<ChildCategory>> ListAsync(SieveModel query)
         {
             var items = _context.ChildCategories
-                .Include(x=>x.SubCategoryId)
                 .AsNoTracking();
             var result = _sieveProcessor.Apply(query, items);
             return await result.ToListAsync();
@@ -43,18 +42,19 @@ namespace server.Repositories.Categories
         {
             var items = _context.ChildCategories
                 .Where(query)
-                .Include(x=>x.SubCategoryId)
                 .AsNoTracking();
             return await items.ToListAsync();
         }
         public void Remove(ChildCategory item)
         {
             _context.ChildCategories.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(ChildCategory item)
         {
             _context.ChildCategories.Update(item);
+            _context.SaveChanges();
         }
     }
 }

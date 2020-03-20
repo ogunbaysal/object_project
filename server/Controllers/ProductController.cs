@@ -27,11 +27,11 @@ namespace server.Controllers
         }
         [HttpGet("all")]
         [AllowAnonymous]
-        public ActionResult<ICollection<object>> GetAll(SieveModel sieveModel)
+        public async Task<ActionResult<ICollection<Product>>> GetAll(SieveModel ?sieveModel)
         {
             try
             {
-                var products = _service.GetAll(sieveModel);
+                var products = await _service.GetAllAsync(sieveModel);
                 return Ok(products);
             }catch(AppException ex)
             {
@@ -43,7 +43,7 @@ namespace server.Controllers
         {
             try
             {
-                var properties = await _service.GetProductProperties(id);
+                var properties = await _service.GetProductPropertiesAsync(id);
                 return Ok(properties);
             }catch(AppException ex)
             {

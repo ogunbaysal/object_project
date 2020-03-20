@@ -4,10 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:client"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid HorizontalAlignment="Right" Width="800">
-        <Button Content="GoTo Administator Panel" Margin="294,129,294,155" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Click="Button_Click"/>
+        Title="MainWindow" Height="720" Width="1280">
 
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.ColumnSpan="1" Background="#1D3048">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label Foreground="White" Content="Üye Girişi" Margin="0,0,15,0"></Label>
+                <Label Foreground="White" Content="Kayıt Ol" Margin="0,0,15,0"/>
+            </StackPanel>
+            
+        </Grid>
+        <Grid Grid.Row="1" >
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Image Height="100" x:Name="MaviLogoImage"  Grid.RowSpan="2" Width="100" Source="/client;Component/Assets/mavi_logo.png"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="600"/>
+                        <ColumnDefinition Width="280"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <StackPanel x:Name="MainCategoriesPanel" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Label Content="Ilk Kategori" FontSize="20"></Label>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <StackPanel x:Name="SearchPanel" Width="280" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="260"/>
+                                    <ColumnDefinition Width="20"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.Column="0">
+                                    <TextBox Width="240" Height="30"></TextBox>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <materialDesign:PackIcon Margin="0,5,0,0" Kind="Search"/>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" >
+            <StackPanel x:Name="pageContent">
+            </StackPanel>
+        </Grid>
     </Grid>
+        
 </Window>

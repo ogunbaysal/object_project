@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using server.Helpers;
 using server.Models.User;
 using server.Repositories;
+using server.Repositories.Interface;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -27,8 +28,8 @@ namespace server.Services
     {
         private readonly ModelContext _context;
         private readonly AppSettings _appSettings;
-        private readonly UserRepository _userRepository;
-        public UserService(ModelContext context,UserRepository userRepository, IOptions<AppSettings> appSettings)
+        private readonly IRepository<User> _userRepository;
+        public UserService(ModelContext context, IRepository<User> userRepository, IOptions<AppSettings> appSettings)
         {
             _context = context;
             _appSettings = appSettings.Value;

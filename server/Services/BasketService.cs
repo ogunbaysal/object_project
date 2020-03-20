@@ -1,5 +1,6 @@
 ﻿using server.Helpers;
 using server.Models.Order;
+using server.Repositories.Interface;
 using server.Repositories.Orders;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,15 @@ namespace server.Services
     }
     public class BasketService : IBasketService
     {
-        private readonly BasketRepository _basketRepository;
-        public BasketService(BasketRepository basketRepository)
+        private readonly IRepository<Basket> _basketRepository;
+        public BasketService(IRepository<Basket> basketRepository)
         {
             this._basketRepository = basketRepository;
         }
 
         public async Task<IEnumerable<Basket>> GetUserBasketAsync(long UserId)
         {
-            var list = await _basketRepository.GetUserBasket(UserId); 
+            var list = await _basketRepository.ListAsync(x=>x.UserId == UserId && x.Status == BasketStatus.ACTIVE);
             if (list.Any())
             {
                 return list;
@@ -38,7 +39,7 @@ namespace server.Services
         public async Task AddItemAsync(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var userBasket = _basketRepository.GetUserBasket(UserId);
+            var userBasket = _basketRepository.ListAsync(x=>x.UserId == UserId && x.Status == BasketStatus.ACTIVE);
             var isExists = userBasket.Result.First(x => x.ProductPropertyId == ProductPropertId && x.Status == BasketStatus.ACTIVE);
             if(isExists == null)
             {
@@ -62,8 +63,8 @@ namespace server.Services
         public void RemoveItem(long UserId, long ProductPropertId, int Count)
         {
             if (Count <= 0) throw new AppException("Count cannot be less than zero");
-            var userBasket = _basketRepository.GetUserBasket(UserId);
-            var isExists = userBasket.Result.First(x => x.ProductPropertyId == ProductPropertId && x.Status == BasketStatus.ACTIVE);
+            var userBasket = _basketRepository.ListAsync(x=>x.UserId == UserId && x.Status == BasketStatus.ACTIVE);
+            var isExists = userBasket.Result.First(x => x.ProductPropertyId == ProductPropertId);
             if (isExists != null)
             {
                 if(isExists.Count - Count <= 0)

@@ -20,6 +20,7 @@ namespace server.Repositories.ProductProperties
         public async Task AddAsync(ProductTrotter item)
         {
             await _context.ProductTrotters.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ProductTrotter> FindByIdAsync(long id)
@@ -44,11 +45,15 @@ namespace server.Repositories.ProductProperties
         public void Remove(ProductTrotter item)
         {
             _context.ProductTrotters.Remove(item);
+            _context.SaveChanges();
+
         }
 
         public void Update(ProductTrotter item)
         {
             _context.ProductTrotters.Update(item);
+            _context.SaveChanges();
+
         }
     }
 }

@@ -20,6 +20,7 @@ namespace server.Repositories.Categories
         public async Task AddAsync(Category item)
         {
             await _context.Categories.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Category> FindByIdAsync(long id)
@@ -46,11 +47,14 @@ namespace server.Repositories.Categories
         public void Remove(Category item)
         {
             _context.Categories.Remove(item);
+            _context.SaveChanges();
+
         }
 
         public void Update(Category item)
         {
             _context.Categories.Update(item);
+            _context.SaveChanges();
         }
     }
 }

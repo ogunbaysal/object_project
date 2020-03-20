@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace server.Migrations
 {
-    public partial class initial : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -250,6 +250,7 @@ namespace server.Migrations
                     ChildCategoryId = table.Column<long>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
+                    Status = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false)
                 },
@@ -330,8 +331,7 @@ namespace server.Migrations
                 {
                     BasketId = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ProductPropertId = table.Column<long>(nullable: false),
-                    ProductPropertyProductPropertId = table.Column<long>(nullable: true),
+                    ProductPropertyId = table.Column<long>(nullable: false),
                     UserId = table.Column<long>(nullable: false),
                     Count = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
@@ -342,11 +342,11 @@ namespace server.Migrations
                 {
                     table.PrimaryKey("PK_basket", x => x.BasketId);
                     table.ForeignKey(
-                        name: "FK_basket_product_property_ProductPropertyProductPropertId",
-                        column: x => x.ProductPropertyProductPropertId,
+                        name: "FK_basket_product_property_ProductPropertyId",
+                        column: x => x.ProductPropertyId,
                         principalTable: "product_property",
                         principalColumn: "ProductPropertId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_basket_users_UserId",
                         column: x => x.UserId,
@@ -422,10 +422,10 @@ namespace server.Migrations
                 columns: new[] { "CategoryId", "DateCreated", "DateModified", "Slug", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 910, DateTimeKind.Utc).AddTicks(4439), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "woman", 1, "Women" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 910, DateTimeKind.Utc).AddTicks(7105), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "men", 1, "Men" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 910, DateTimeKind.Utc).AddTicks(7192), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "child", 1, "Child" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 910, DateTimeKind.Utc).AddTicks(7195), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "outlet", 1, "Outlet" }
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(216), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "woman", 1, "Women" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(1644), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "men", 1, "Men" },
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(1713), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "child", 1, "Child" },
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(1715), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "outlet", 1, "Outlet" }
                 });
 
             migrationBuilder.InsertData(
@@ -433,12 +433,12 @@ namespace server.Migrations
                 columns: new[] { "ProductColorId", "DateAdded", "DateModified", "Status", "Tag", "Url" },
                 values: new object[,]
                 {
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(7037), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Black", "site.com/blue" },
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(3348), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Blue", "site.com/blue" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(6921), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Red", "site.com/blue" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(7012), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Green", "site.com/blue" },
-                    { 6L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(7081), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Purple", "site.com/blue" },
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(7059), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "White", "site.com/blue" }
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(1088), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Black", "site.com/blue" },
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 70, DateTimeKind.Utc).AddTicks(7739), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Blue", "site.com/blue" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(905), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Red", "site.com/blue" },
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(1060), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Green", "site.com/blue" },
+                    { 6L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(1132), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Purple", "site.com/blue" },
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(1110), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "White", "site.com/blue" }
                 });
 
             migrationBuilder.InsertData(
@@ -446,11 +446,11 @@ namespace server.Migrations
                 columns: new[] { "ProductHeightId", "DateAdded", "DateModified", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(430), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "36" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(383), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "32" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(340), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "30" },
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 907, DateTimeKind.Utc).AddTicks(9255), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "28" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(407), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "34" }
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(5542), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "36" },
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(5474), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "32" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(5398), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "30" },
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(3712), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "28" },
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(5509), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "34" }
                 });
 
             migrationBuilder.InsertData(
@@ -458,21 +458,21 @@ namespace server.Migrations
                 columns: new[] { "ProductSizeId", "DateAdded", "DateModified", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 12L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4329), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "30" },
-                    { 13L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4361), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "32" },
-                    { 14L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4388), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "34" },
-                    { 11L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4297), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "28" },
-                    { 15L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4415), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "36" },
-                    { 10L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4268), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "26" },
-                    { 9L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4237), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "24" },
-                    { 8L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4185), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXXL" },
-                    { 7L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4114), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXL" },
-                    { 6L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4091), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XL" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(3977), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XS" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4044), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "M" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4020), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "S" },
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(2853), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXS" },
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(4069), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "L" }
+                    { 12L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(616), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "30" },
+                    { 13L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(637), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "32" },
+                    { 14L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(655), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "34" },
+                    { 11L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(596), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "28" },
+                    { 15L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(674), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "36" },
+                    { 10L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(577), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "26" },
+                    { 9L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(558), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "24" },
+                    { 8L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(539), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXXL" },
+                    { 7L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(470), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXL" },
+                    { 6L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(448), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XL" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(333), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XS" },
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(403), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "M" },
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(380), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "S" },
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 71, DateTimeKind.Utc).AddTicks(8861), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "XXS" },
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(425), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "L" }
                 });
 
             migrationBuilder.InsertData(
@@ -480,11 +480,11 @@ namespace server.Migrations
                 columns: new[] { "ProductThemeId", "DateCreated", "DateModified", "Slug", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 909, DateTimeKind.Utc).AddTicks(5551), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mavi-logo", 0, "Mavi Logo" },
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 908, DateTimeKind.Utc).AddTicks(7443), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "new-items", 0, "New Items" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 909, DateTimeKind.Utc).AddTicks(5556), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "smart", 0, "Smart" },
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 909, DateTimeKind.Utc).AddTicks(5559), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mavi-black", 0, "Mavi Black" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 909, DateTimeKind.Utc).AddTicks(5303), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "season-sale", 0, "Season Sale" }
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(4983), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mavi-logo", 0, "Mavi Logo" },
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(3125), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "new-items", 0, "New Items" },
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(4985), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "smart", 0, "Smart" },
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(4986), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mavi-black", 0, "Mavi Black" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(4865), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "season-sale", 0, "Season Sale" }
                 });
 
             migrationBuilder.InsertData(
@@ -492,8 +492,8 @@ namespace server.Migrations
                 columns: new[] { "ProductTrotterId", "DateCreated", "DateModified", "Slug", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 909, DateTimeKind.Utc).AddTicks(9020), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "long-sleeve", 0, "Long Sleeve" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 910, DateTimeKind.Utc).AddTicks(1399), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "short-sleeve", 0, "Short Sleeve" }
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(6928), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "long-sleeve", 0, "Long Sleeve" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 72, DateTimeKind.Utc).AddTicks(8448), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "short-sleeve", 0, "Short Sleeve" }
                 });
 
             migrationBuilder.InsertData(
@@ -513,8 +513,8 @@ namespace server.Migrations
                 columns: new[] { "UserId", "DateCreated", "DateModified", "Email", "Firstname", "Lastname", "Password", "Role", "Token", "Username" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 448, DateTimeKind.Utc).AddTicks(3014), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "info@ogun.me", "Ogün", "Baysal", "$2a$11$fmMbwKDizxrkrqC6ig2ybus22ObOhIh1kgvYRPhuBtl/DqP7HbhuW", "Admin", null, "Admin" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 704, DateTimeKind.Utc).AddTicks(6263), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ozgur.durak@yandex.com", "Özgür", "Durak", "$2a$11$oSj2NYBpYj8E0vuIoYZ9fOlLeq/LG/yrZ/muNznCfIUaSSjZKRGqa", "User", null, "ozgurdurak" }
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 2, 624, DateTimeKind.Utc).AddTicks(995), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "info@ogun.me", "Ogün", "Baysal", "$2a$11$y.fnJEzXDma57RXagUgFpu2OTsNUnwipgtp4Akkcz/G05XEDfpe7K", "Admin", null, "Admin" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 2, 861, DateTimeKind.Utc).AddTicks(1455), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "ozgur.durak@yandex.com", "Özgür", "Durak", "$2a$11$CI2Q7H8hQJRLKEw3RnQEMOhfZDoo/6x5CI4pDeLS8dNXoA2UJMj2u", "User", null, "ozgurdurak" }
                 });
 
             migrationBuilder.InsertData(
@@ -534,8 +534,8 @@ namespace server.Migrations
                 columns: new[] { "SubCategoryId", "DateCreated", "DateModified", "ParentCategoryId", "Slug", "Status", "Title" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 911, DateTimeKind.Utc).AddTicks(119), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, "clothes", 1, "Clothes" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 911, DateTimeKind.Utc).AddTicks(3155), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, "accessories", 1, "Accessories" }
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(3389), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, "clothes", 1, "Clothes" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(5258), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2L, "accessories", 1, "Accessories" }
                 });
 
             migrationBuilder.InsertData(
@@ -543,75 +543,75 @@ namespace server.Migrations
                 columns: new[] { "ChildCategoryId", "DateCreated", "DateModified", "Slug", "Status", "SubCategoryId", "Title" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 911, DateTimeKind.Utc).AddTicks(6073), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "denim", 1, 1L, "Denim" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1186), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "shirts", 1, 1L, "Shirts" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1303), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "t-shirts", 1, 1L, "T-Shirts" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1306), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "basics", 1, 1L, "Basics" },
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1308), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sweatshirts", 1, 1L, "Sweatshirts" },
-                    { 6L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1310), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "coat-jacket", 1, 1L, "Coat - Jacket" },
-                    { 7L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1312), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "pants", 1, 1L, "Pants" },
-                    { 8L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1313), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "knitwear-sweaters", 1, 1L, "Knitwear-Sweaters" },
-                    { 9L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1316), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bags-wallets", 1, 2L, "Bags-Wallets" },
-                    { 10L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1318), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "parfume", 1, 2L, "Parfume" },
-                    { 11L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1320), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "belt", 1, 2L, "Belt" },
-                    { 12L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1322), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "scarf-beret", 1, 2L, "Scarf-Beret" },
-                    { 13L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1324), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "hats", 1, 2L, "Hats" },
-                    { 14L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1327), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "boxer", 1, 2L, "Boxer" },
-                    { 15L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1328), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "socks", 1, 2L, "Socks" },
-                    { 16L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(1334), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "boxer", 1, 2L, "Boxer" }
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(6942), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "denim", 1, 1L, "Denim" },
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9228), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "shirts", 1, 1L, "Shirts" },
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9269), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "t-shirts", 1, 1L, "T-Shirts" },
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9271), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "basics", 1, 1L, "Basics" },
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9272), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sweatshirts", 1, 1L, "Sweatshirts" },
+                    { 6L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9274), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "coat-jacket", 1, 1L, "Coat - Jacket" },
+                    { 7L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9275), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "pants", 1, 1L, "Pants" },
+                    { 8L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9276), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "knitwear-sweaters", 1, 1L, "Knitwear-Sweaters" },
+                    { 9L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9277), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "bags-wallets", 1, 2L, "Bags-Wallets" },
+                    { 10L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9278), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "parfume", 1, 2L, "Parfume" },
+                    { 11L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9280), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "belt", 1, 2L, "Belt" },
+                    { 12L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9281), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "scarf-beret", 1, 2L, "Scarf-Beret" },
+                    { 13L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9282), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "hats", 1, 2L, "Hats" },
+                    { 14L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9283), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "boxer", 1, 2L, "Boxer" },
+                    { 15L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9284), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "socks", 1, 2L, "Socks" },
+                    { 16L, new DateTime(2020, 3, 15, 17, 32, 3, 73, DateTimeKind.Utc).AddTicks(9286), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "boxer", 1, 2L, "Boxer" }
                 });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "ProductId", "ChildCategoryId", "DateCreated", "DateModified", "Description", "Title" },
-                values: new object[] { 1L, 1L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(5512), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", "Jake Black Berlin Jean Pants" });
+                columns: new[] { "ProductId", "ChildCategoryId", "DateCreated", "DateModified", "Description", "Status", "Title" },
+                values: new object[] { 1L, 1L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(1172), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", 0, "Jake Black Berlin Jean Pants" });
 
             migrationBuilder.InsertData(
                 table: "products",
-                columns: new[] { "ProductId", "ChildCategoryId", "DateCreated", "DateModified", "Description", "Title" },
-                values: new object[] { 2L, 2L, new DateTime(2020, 3, 3, 10, 21, 54, 912, DateTimeKind.Utc).AddTicks(8871), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", "Jake Black Berlin Jean Pants" });
+                columns: new[] { "ProductId", "ChildCategoryId", "DateCreated", "DateModified", "Description", "Status", "Title" },
+                values: new object[] { 2L, 2L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(3097), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "", 0, "Jake Black Berlin Jean Pants" });
 
             migrationBuilder.InsertData(
                 table: "product_property",
                 columns: new[] { "ProductPropertId", "DateCreated", "DateModified", "Description", "Price", "ProductColorId", "ProductHeightId", "ProductId", "ProductSizeId", "ProductThemeId", "ProductTrotterId", "StockCount", "Title" },
                 values: new object[,]
                 {
-                    { 1L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(2452), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 1L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(5271), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
                 Slim Leg
                 98% Cotton 2% Elastan
                 Black", 0f, 2L, 2L, 1L, 2L, 1L, null, 0, "Jake Black Berlin Jean Pants" },
-                    { 2L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(8570), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 2L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(9805), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
                 Slim Leg
                 98% Cotton 2% Elastan
                 Black", 0f, 3L, 2L, 1L, 2L, 1L, null, 0, "Jake Black Berlin Jean Pants" },
-                    { 3L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(8672), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 3L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(9896), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
                 Slim Leg
                 98% Cotton 2% Elastan
                 Black", 0f, 4L, 2L, 1L, 2L, 1L, null, 0, "Jake Black Berlin Jean Pants" },
-                    { 6L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(9299), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 6L, new DateTime(2020, 3, 15, 17, 32, 3, 75, DateTimeKind.Utc).AddTicks(525), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
                 Slim Leg
                 98% Cotton 2% Elastan
                 Black", 0f, 1L, 2L, 1L, 2L, 2L, null, 0, "Jake Black Berlin Jean Pants" },
-                    { 4L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(8685), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 4L, new DateTime(2020, 3, 15, 17, 32, 3, 74, DateTimeKind.Utc).AddTicks(9909), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
                 Slim Leg
                 98% Cotton 2% Elastan
                 Black", 0f, 2L, 5L, 2L, 1L, 2L, 1L, 0, "Jake Black Berlin Jean Pants" },
-                    { 5L, new DateTime(2020, 3, 3, 10, 21, 54, 913, DateTimeKind.Utc).AddTicks(9261), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
+                    { 5L, new DateTime(2020, 3, 15, 17, 32, 3, 75, DateTimeKind.Utc).AddTicks(487), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
                 New Items
                 Regular Rise
                 Skinny
@@ -621,9 +621,9 @@ namespace server.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_basket_ProductPropertyProductPropertId",
+                name: "IX_basket_ProductPropertyId",
                 table: "basket",
-                column: "ProductPropertyProductPropertId");
+                column: "ProductPropertyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_basket_UserId",

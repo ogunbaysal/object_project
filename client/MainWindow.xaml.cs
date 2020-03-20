@@ -1,4 +1,5 @@
-﻿using System;
+﻿using client.Components.CategoryView;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,16 +21,22 @@ namespace client
     /// </summary>
     public partial class MainWindow : Window
     {
+        public Window ChildWindow;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        protected void setPage(Window window)
         {
-            Window MainWindow = new Administrator.Administrator();
-            MainWindow.Show();
-            this.Close();
+            ChildWindow = window;
+           this.pageContent.Children.Clear();
+
+            object content = ChildWindow.Content;
+            ChildWindow.Content = null;
+            ChildWindow.Close();
+            this.pageContent.Children.Add(content as UIElement);
         }
+
     }
 }

@@ -9,6 +9,7 @@ using Sieve.Models;
 using Sieve.Services;
 using System.Collections;
 using server.Repositories.Products;
+using server.Repositories.Interface;
 
 namespace server.Services
 {
@@ -22,10 +23,10 @@ namespace server.Services
     }
     public class ProductService : IProductService
     {
-        private readonly ProductRepository _productRepository;
-        private readonly ProductPropertyRepository _productPropertyRepository;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<ProductProperty> _productPropertyRepository;
 
-        public ProductService(ProductRepository productRepository,  ProductPropertyRepository productPropertyRepository)
+        public ProductService(IRepository<Product> productRepository, IRepository<ProductProperty> productPropertyRepository)
         {
             _productRepository = productRepository;
             _productPropertyRepository = productPropertyRepository;

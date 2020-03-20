@@ -20,6 +20,7 @@ namespace server.Repositories.Orders
         public async Task AddAsync(OrderDetail item)
         {
             await _context.OrderDetails.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<OrderDetail> FindByIdAsync(long id)
@@ -45,11 +46,15 @@ namespace server.Repositories.Orders
         public void Remove(OrderDetail item)
         {
             _context.OrderDetails.Remove(item);
+            _context.SaveChanges();
+
         }
 
         public void Update(OrderDetail item)
         {
             _context.OrderDetails.Update(item);
+            _context.SaveChanges();
+
         }
     }
 }

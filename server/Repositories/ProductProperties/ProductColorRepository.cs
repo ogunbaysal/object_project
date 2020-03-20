@@ -20,6 +20,7 @@ namespace server.Repositories.ProductProperties
         public async Task AddAsync(ProductColor item)
         {
             await _context.ProductColors.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ProductColor> FindByIdAsync(long id)
@@ -44,11 +45,13 @@ namespace server.Repositories.ProductProperties
         public void Remove(ProductColor item)
         {
             _context.ProductColors.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(ProductColor item)
         {
             _context.ProductColors.Update(item);
+            _context.SaveChanges();
         }
     }
 }

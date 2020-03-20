@@ -20,6 +20,7 @@ namespace server.Repositories.ProductProperties
         public async Task AddAsync(ProductTheme item)
         {
             await _context.ProductThemes.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<ProductTheme> FindByIdAsync(long id)
@@ -44,11 +45,15 @@ namespace server.Repositories.ProductProperties
         public void Remove(ProductTheme item)
         {
             _context.ProductThemes.Remove(item);
+            _context.SaveChanges();
+
         }
 
         public void Update(ProductTheme item)
         {
             _context.ProductThemes.Update(item);
+            _context.SaveChanges();
+
         }
     }
 }

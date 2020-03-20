@@ -20,6 +20,7 @@ namespace server.Repositories
         public async Task AddAsync(User item)
         {
             await _context.Users.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User> FindByIdAsync(long id)
@@ -44,11 +45,13 @@ namespace server.Repositories
         public void Remove(User item)
         {
             _context.Users.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(User item)
         {
             _context.Users.Update(item);
+            _context.SaveChanges();
         }
     }
 }

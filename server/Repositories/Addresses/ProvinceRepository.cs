@@ -20,6 +20,7 @@ namespace server.Repositories.Addresses
         public async Task AddAsync(Province item)
         {
             await _context.Provinces.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Province> FindByIdAsync(long id)
@@ -46,11 +47,13 @@ namespace server.Repositories.Addresses
         public void Remove(Province item)
         {
             _context.Provinces.Remove(item);
+            _context.SaveChanges();
         }
 
         public void Update(Province item)
         {
             _context.Provinces.Update(item);
+            _context.SaveChanges();
         }
     }
 }
