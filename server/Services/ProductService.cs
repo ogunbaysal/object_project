@@ -20,16 +20,23 @@ namespace server.Services
         Task AddProductAsync(Product product);
         Task AddProductPropertyAsync(ProductProperty item);
         Task<IEnumerable<object>> GetProductPropertiesAsync(long ProductId);
+        Task<IEnumerable<ProductImage>> GetPropertyImageByPropertyIdAsync(long id);
     }
     public class ProductService : IProductService
     {
         private readonly IRepository<Product> _productRepository;
         private readonly IRepository<ProductProperty> _productPropertyRepository;
+        private readonly IRepository<ProductImage> _productImageRepository;
 
-        public ProductService(IRepository<Product> productRepository, IRepository<ProductProperty> productPropertyRepository)
+        public ProductService(
+            IRepository<Product> productRepository, 
+            IRepository<ProductProperty> productPropertyRepository,
+            IRepository<ProductImage> productImageRepository
+            )
         {
             _productRepository = productRepository;
             _productPropertyRepository = productPropertyRepository;
+            _productImageRepository = productImageRepository;
         }
         public async Task<IEnumerable<Product>> GetAllAsync(SieveModel sieveModel)
         {
@@ -102,6 +109,11 @@ namespace server.Services
         {
             await _productPropertyRepository.AddAsync(item);
         }
-
+        public async Task<IEnumerable<ProductImage>> GetPropertyImageByPropertyIdAsync(long id)
+        {
+            var image = await _productImageRepository.ListAsync(x=>x.ProductPropertyId == id);
+            if (image != null) return image;
+            throw new AppException("No Image Found");
+        }
     }
 }

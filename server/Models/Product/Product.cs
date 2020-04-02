@@ -18,6 +18,7 @@ namespace server.Models.Product
 
         public long ProductId { get; set; }
         public ICollection<ProductProperty> ProductProperties { get; set; }
+        [Sieve(CanFilter = true)]
         public long ChildCategoryId { get; set; }
         [Required(ErrorMessage = "ChildCategory is required")]
         public ChildCategory ChildCategory { get; set; }

@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace client.Api.Models
+namespace client.Model
 {
-    class SubCategory
+    public class ChildCategory
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
+        public string ParentCategoryId { get; set; }
         public string Title { get; set; }
         public string Slug { get; set; }
-        public long ParentCategoryId { get; set; }
-
     }
 }

@@ -10,14 +10,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace client.Pages
+namespace client.View.Home
 {
     /// <summary>
-    /// Interaction logic for Main.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Main : Window
-    {
-        public Main()
+    public partial class MainWindow : Window
+    {     
+        public MainWindow()
         {
             InitializeComponent();
         }

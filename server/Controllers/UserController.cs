@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using server.Helpers;
+using server.Models;
 using server.Models.User;
 using server.Services;
 
@@ -40,14 +41,24 @@ namespace server.Controllers
             var model = _mapper.Map<User>(user);
             model.Password = null;
             model.Token = null;
-            return Ok(model);
+            var result = new Result
+            {
+                Data = model,
+                Count = 1
+            };
+            return Ok(result);
         }
         [HttpGet("profile")]
         public async Task<ActionResult<User>> GetProfile()
         {
             var user = await _userService.GetById(Convert.ToInt32(HttpContext.User.Claims.First(x => x.Type == "Id").Value));
             var model = _mapper.Map<User>(user);
-            return Ok(model);
+            var result = new Result
+            {
+                Data = model,
+                Count = 1
+            };
+            return Ok(result);
         }
         [AllowAnonymous]
         [HttpPost("authenticate")]
@@ -56,13 +67,19 @@ namespace server.Controllers
             var user = _userService.Authenticate(model.Username, model.Password);
             if (user == null)
             {
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new Result() { Message = "Username or password is incorrect" });
             }
-            // return basic user info and authentication token
-            return Ok(new
+            var result = new Result()
             {
-                Token = user.Token
-            });
+                Count = 1,
+                Data = new
+                {
+                    Token = user.Token
+                },
+                Message = "Successful"
+            };
+            // return basic user info and authentication token
+            return Ok(result);
         }
 
         [AllowAnonymous]
@@ -73,10 +90,18 @@ namespace server.Controllers
             try
             {
                 await _userService.Create(user, model.Password);
-                return Ok();
+                var result = new Result
+                { 
+                    Message = "Successfuly Registered. Please Log in."
+                };
+                return Ok(result);
             }catch(AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var result = new Result
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(result);
             }
         }
         [HttpPut("profile")]
@@ -87,11 +112,19 @@ namespace server.Controllers
             try
             {
                 _userService.Update(user, model.Password);
-                return Ok();
+                var result = new Result
+                {
+                    Message = string.Format("Successfuly Updated user {0}", model.Username)
+                };
+                return Ok(result);
             }
             catch (AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var result = new Result
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(result);
             }
         }
 
@@ -104,11 +137,15 @@ namespace server.Controllers
             try
             {
                 _userService.Update(user, model.Password);
-                return Ok();
+                var result = new Result
+                {
+                    Message = string.Format("Successfuly Updated user {0}", model.Username)
+                };
+                return Ok(result);
             }
             catch (AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return BadRequest(new Result() { Message = ex.Message });
             }
         }
         [Authorize(Roles = Role.Admin)]
@@ -117,14 +154,30 @@ namespace server.Controllers
         {
             var users = _userService.GetAll();
             var model = _mapper.Map<IList<User>>(users);
-            return Ok(model);
+            var result = new Result
+            {
+                Data = model,
+                Count = model.Count
+            };
+            return Ok(result);
         }
         [Authorize(Roles = Role.Admin)]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _userService.DeleteAsync(id);
-            return Ok();
+            try
+            {
+                var result = new Result
+                {
+                    Message = string.Format("Successfuly Deleted user id {0}", id)
+                };
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new Result() { Message = ex.Message });
+            }
         }
     }
 }

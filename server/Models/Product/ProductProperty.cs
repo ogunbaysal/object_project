@@ -13,7 +13,7 @@ namespace server.Models.Product
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long ProductPropertId { get; set; }
+        public long ProductPropertyId { get; set; }
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
 

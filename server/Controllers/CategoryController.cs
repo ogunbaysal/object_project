@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using server.Helpers;
+using server.Models;
 using server.Models.Category;
 using server.Services;
 
@@ -32,12 +33,21 @@ namespace server.Controllers
                     Id = x.CategoryId,
                     Title = x.Title,
                     Slug = x.Slug
-                });
-                return Ok(result);
+                }).ToList();
+                var response = new Result()
+                {
+                    Data = result,
+                    Count = result.Count
+                };
+                return Ok(response);
             }
             catch(AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var response = new Result()
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(response);
             }
         }
         [AllowAnonymous]
@@ -50,15 +60,24 @@ namespace server.Controllers
                 var result = categories.Select(x => new
                 {
                     Id = x.SubCategoryId,
-                    Title = x.Title, 
+                    Title = x.Title,
                     Slug = x.Slug,
                     ParentCategoryId = x.ParentCategoryId,
-                });
-                return Ok(result);
+                }).ToList();
+                var response = new Result()
+                {
+                    Data = result,
+                    Count =result.Count
+                };
+                return Ok(response);
             }
             catch (AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var response = new Result()
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(response);
             }
         }
         [AllowAnonymous]
@@ -74,12 +93,21 @@ namespace server.Controllers
                     Title = x.Title,
                     Slug = x.Slug,
                     ParentCategoryId = x.SubCategoryId,
-                });
-                return Ok(result);
+                }).ToList();
+                var response = new Result()
+                {
+                    Data = result,
+                    Count = result.Count
+                };
+                return Ok(response);
             }
             catch (AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var response = new Result()
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(response);
             }
         }
         [AllowAnonymous]
@@ -89,11 +117,20 @@ namespace server.Controllers
             try
             {
                 var category = await _service.GetCategoryByIdAsync(id);
-                return Ok(category);
+                var result = new Result()
+                {
+                    Data = category,
+                    Count = 1
+                };
+                return Ok(result);
             }
             catch (AppException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                var response = new Result()
+                {
+                    Message = ex.Message
+                };
+                return BadRequest(response);
             }
         }
     }
