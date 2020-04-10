@@ -136,18 +136,23 @@ namespace server.Helpers
                 new ChildCategory() { ChildCategoryId = 16, SubCategoryId = 2, Title = "Boxer", Slug = "boxer" }
                 );
             modelBuilder.Entity<Product>().HasData(
-                new Product() { ProductId = 1, ChildCategoryId = 1 , Title = "Jake Black Berlin Jean Pants", Description = "" },
-                new Product() { ProductId = 2, ChildCategoryId = 2 , Title = "Jake Black Berlin Jean Pants", Description = "" }
+                new Product() { ProductId = 1, ChildCategoryId = 1, Title = "Jake Black Berlin Jean Pants", Description = "", DateCreated = new DateTime(2020, 4, 14), DateModified = new DateTime(2020, 4, 14) },
+                new Product() { ProductId = 2, ChildCategoryId = 2 , Title = "James Black Pro Gölge Mavi Jean Pantolon", Description = "", DateCreated = new DateTime(2020, 4, 14), DateModified = new DateTime(2020, 4, 14) }
                 );
             modelBuilder.Entity<ProductProperty>().HasData(
-                new ProductProperty() { ProductPropertId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 2, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertId = 2, ProductId = 1, ProductThemeId = 1, ProductColorId = 3, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertId = 3, ProductId = 1, ProductThemeId = 1, ProductColorId = 4, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertId = 4, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 1, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertId = 5, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertId = 6, ProductId = 1, ProductThemeId = 2, ProductColorId = 1, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" }
+                new ProductProperty() { ProductPropertyId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 2, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 2, ProductId = 1, ProductThemeId = 1, ProductColorId = 3, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 3, ProductId = 1, ProductThemeId = 1, ProductColorId = 4, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 4, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 1, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 5, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 6, ProductId = 1, ProductThemeId = 2, ProductColorId = 1, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" }
 
                 );
+            modelBuilder.Entity<ProductImage>().HasData(
+                new ProductImage() { ImageId = 1, ProductPropertyId = 1, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc7/hb1/9320590868510/0042228720_image_1.jpg_Default-ZoomProductImage" },
+                new ProductImage() { ImageId = 2, ProductPropertyId = 2, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h8c/h21/9206049013790/0042223856_image_1.jpg_Default-ZoomProductImage" },
+                new ProductImage() { ImageId = 3, ProductPropertyId = 3, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc1/h6d/9313162428446/0042226971_image_1.jpg_Default-ZoomProductImage" }
+                ); ;
         }
     }
 }

@@ -22,10 +22,10 @@ namespace client.Components.ProductListing
     /// </summary>
     public partial class ProductListingItem : UserControl
     {
-        public static readonly DependencyProperty ProductIdProperty = DependencyProperty.Register("ProductId", typeof(long), typeof(ProductListingItem));
+        public static readonly DependencyProperty ProductIdProperty = DependencyProperty.Register("ProductId", typeof(long), typeof(UserControl), new FrameworkPropertyMetadata(null));
         public long ProductId
         {
-            get { return (long)GetValue(ProductIdProperty); }
+            get { return long.Parse(GetValue(ProductIdProperty).ToString()); }
             set { SetValue(ProductIdProperty, value); }
         }
         public Product Product { get; set; }
@@ -33,22 +33,21 @@ namespace client.Components.ProductListing
 
         public String Price { get; set; }
 
-        private readonly ProductAPI _productAPI;
+        private ProductAPI _productAPI;
         private ProductProperty cheaperProductProperty;
-        public ProductListingItem(long itemId)
-        {
-            this.ProductId = itemId;
-            InitializeComponent();
-            _productAPI = new ProductAPI();
-            this.initialize();
-
-        }
         public ProductListingItem()
         {
             InitializeComponent();
+            Loaded += ProductListingItem_Loaded;
+            
+        }
+
+        private void ProductListingItem_Loaded(object sender, RoutedEventArgs e)
+        {
             _productAPI = new ProductAPI();
             this.initialize();
         }
+
         private void initialize()
         {
             Product = getProduct(ProductId);
@@ -75,7 +74,7 @@ namespace client.Components.ProductListing
         private Product getProduct(long Id)
         {
             var data = _productAPI.GetOne(Id);
-            var item = (Product)data.Data;
+            var item = ((JObject)data.Data).ToObject<Product>();
             return item;
         }
         private ProductProperty getCheaperProductProperty(long productId)

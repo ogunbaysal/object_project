@@ -3,8 +3,11 @@ using client.Api.Core;
 using client.Components.CategoryView;
 using client.Helpers;
 using client.Model;
+using client.View.Home;
+using client.View.ProductListing;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,14 +28,15 @@ namespace client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Window ChildWindow;
+        public UserControl ChildContent;
         CategoryAPI _categoryApi;
         public MainWindow()
         {
             InitializeComponent();
             _categoryApi = new CategoryAPI();
             setCategories();
-            
+            this.ChildContent = new Home();
+            this.DataContext = this;
         }
         private void setCategories()
         {
@@ -68,18 +72,15 @@ namespace client
 
         private void View_ChildCategoryClicked(object sender, Components.CategoryView.EventArgs e)
         {
-            
+            long clickedChildCategoryId = e.ChildCategoryId;
+            var content = new ProductListing(new ProductFilter() { ChildCategoryId = 2 });
+            this.setPage(content);
         }
 
-        protected void setPage(Window window)
+        protected void setPage(UserControl content)
         {
-            ChildWindow = window;
-            this.pageContent.Children.Clear();
-
-            object content = ChildWindow.Content;
-            ChildWindow.Content = null;
-            ChildWindow.Close();
-            this.pageContent.Children.Add(content as UIElement);
+            pageContent.Children.Clear();
+            pageContent.Children.Add(content);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -19,7 +19,7 @@ namespace server.Services
         Task<Product> GetByIdAsync(long id);
         Task AddProductAsync(Product product);
         Task AddProductPropertyAsync(ProductProperty item);
-        Task<IEnumerable<object>> GetProductPropertiesAsync(long ProductId);
+        Task<IEnumerable<ProductProperty>> GetProductPropertiesAsync(long ProductId);
         Task<IEnumerable<ProductImage>> GetPropertyImageByPropertyIdAsync(long id);
     }
     public class ProductService : IProductService
@@ -46,54 +46,10 @@ namespace server.Services
                 .Where(x => x.Status == ProductStatus.ACTIVE);
             return result;
         }
-        public async Task<IEnumerable<object>> GetProductPropertiesAsync(long ProductId)
+        public async Task<IEnumerable<ProductProperty>> GetProductPropertiesAsync(long ProductId)
         {
             var properties = await _productPropertyRepository.ListAsync(x => x.ProductId == ProductId);
-            var items = new List<object>();
-            foreach (var property in properties)
-            {
-                var Color = property.ProductColorId is null ? null : new
-                {
-                    ColorId = property.ProductColor.ProductColorId,
-                    Tag = property.ProductColor.Tag,
-                    Url = property.ProductColor.Url
-                };
-                var Size = property.ProductSizeId is null ? null : new
-                {
-                    SizeId = property.ProductSize.ProductSizeId,
-                    Title = property.ProductSize.Title
-                };
-                var Height = property.ProductHeightId is null ? null : new
-                {
-                    HeightId = property.ProductHeight.ProductHeightId,
-                    Title = property.ProductHeight.Title
-                };
-                var Theme = new
-                {
-                    ThemeId = property.ProductTheme.ProductThemeId,
-                    Title = property.ProductTheme.Title,
-                    Slug = property.ProductTheme.Slug
-                };
-                var Trotter = property.ProductTrotterId is null ? null : new
-                {
-                    TrotterId = property.ProductTrotter.ProductTrotterId,
-                    Title = property.ProductTrotter.Title,
-                    Slug = property.ProductTrotter.Slug
-                };
-                items.Add(new
-                {
-                    Title = property.Title,
-                    Description = property.Description,
-                    DateCreated = property.DateCreated,
-                    DateModified = property.DateModified,
-                    Color = Color,
-                    Height = Height,
-                    Size = Size,
-                    Theme = Theme,
-                    Trotter = Trotter
-                });
-            }
-            return items.ToList();
+            return properties.ToList();
         }
         public async Task<Product> GetByIdAsync(long id)
         {

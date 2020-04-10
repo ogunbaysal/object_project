@@ -14,11 +14,15 @@ namespace client.Api
         }
         public Result GetPropertyImages(long id)
         {
-            return GetMethod(string.Format("property/image/{0}", id));
+            return GetMethod(string.Format("product/property/image/{0}", id));
         }
         public Result GetProperties(long productId)
         {
-            return GetMethod(string.Format("properties/{0}", productId));
+            return GetMethod(string.Format("product/properties/{0}", productId));
+        }
+        public Result GetProductsByChildCategoryId(long id)
+        {
+            return GetMethod(string.Format("product/all?filters=ChildCategoryId=={0}", id));
         }
     }
 }

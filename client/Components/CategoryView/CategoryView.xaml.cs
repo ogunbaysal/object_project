@@ -70,7 +70,7 @@ namespace client.Components.CategoryView
         private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var item = (TextBlock)sender;
-            var id = (long)item.Tag;
+            var id = long.Parse(item.Tag.ToString());
             var args = new EventArgs()
             {
                 ChildCategoryId = id

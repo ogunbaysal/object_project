@@ -34,7 +34,7 @@ namespace server.Repositories.Products
                 .Include(x => x.ProductHeightId)
                 .Include(x => x.ProductColorId)
                 .AsNoTracking()
-                .FirstAsync(x => x.ProductPropertId == id);
+                .FirstAsync(x => x.ProductPropertyId == id);
             return item;
         }
 
@@ -56,12 +56,6 @@ namespace server.Repositories.Products
         {
             var items = _context.ProductProperties
                 .Where(query)
-                .Include(x => x.ProductSizeId)
-                .Include(x => x.ProductThemeId)
-                .Include(x => x.ProductTrotterId)
-                .Include(x => x.ProductId)
-                .Include(x => x.ProductHeightId)
-                .Include(x => x.ProductColorId)
                 .AsNoTracking();
             return await items.ToListAsync();
         }

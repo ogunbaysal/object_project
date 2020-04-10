@@ -50,7 +50,7 @@ namespace server.Controllers
         }
         [HttpGet("one/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<Result>> GetOne([FromQuery]long id) 
+        public async Task<ActionResult<Result>> GetOne(long id) 
         {
              try
             {
@@ -71,7 +71,7 @@ namespace server.Controllers
             }
         }
         [HttpGet("properties/{id}")]
-        public async Task<ActionResult<ICollection<Result>>> GetProductProperties([FromQuery]long id)
+        public async Task<ActionResult<ICollection<Result>>> GetProductProperties(long id)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace server.Controllers
 
         [HttpGet("property/image/{id}")]
         [AllowAnonymous]
-        public async Task<ActionResult<Result>> GetPropertyImage([FromQuery] long id)
+        public async Task<ActionResult<Result>> GetPropertyImage(long id)
         {
             try
             {
