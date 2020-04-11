@@ -78,8 +78,8 @@
                     </Grid>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Row="2" HorizontalAlignment="Center">
-                <Canvas x:Name="CategoryViewCanvas" Height="0" />
+            <Grid Grid.Row="2" HorizontalAlignment="Center" ZIndex="99999">
+                <Canvas x:Name="CategoryViewCanvas" Width="1280" Height="0" />
             </Grid>
             <StackPanel Grid.Row="3" x:Name="pageContent">
 

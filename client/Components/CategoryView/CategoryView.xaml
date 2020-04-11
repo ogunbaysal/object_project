@@ -6,7 +6,7 @@
     xmlns:local="clr-namespace:client.Components.CategoryView"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignWidth="600">
+    d:DesignWidth="1280">
 
     <StackPanel
         x:Name="RootPanel"

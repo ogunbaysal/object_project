@@ -63,8 +63,8 @@ namespace client
             var view = new CategoryView((long)label.Tag);
             view.ChildCategoryClicked += View_ChildCategoryClicked;
             CategoryViewCanvas.HorizontalAlignment = HorizontalAlignment.Center;
+            view.Width = CategoryViewCanvas.Width;
             CategoryViewCanvas.Height = view.Height;
-            CategoryViewCanvas.Width = view.Width;
             CategoryViewCanvas.Visibility = Visibility.Visible;
             CategoryViewCanvas.Name = "CategoryViewCanvas";
             CategoryViewCanvas.Children.Add(view);
