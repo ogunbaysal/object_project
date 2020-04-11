@@ -39,7 +39,6 @@ namespace client.Components.ProductListing
         {
             InitializeComponent();
             Loaded += ProductListingItem_Loaded;
-            
         }
 
         private void ProductListingItem_Loaded(object sender, RoutedEventArgs e)

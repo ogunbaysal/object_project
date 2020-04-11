@@ -18,9 +18,9 @@ namespace server.Models.Order
         public Order Order { get; set; }
         public DateTime DeliveryDate { get; set; }
         public Product.ProductProperty ProductProperty { get; set; }
-        public float UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
         public int Piece { get; set; }
-        public float TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.UtcNow;
         public DateTime DateModified { get; set; }
     }

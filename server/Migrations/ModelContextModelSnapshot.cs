@@ -145,7 +145,7 @@ namespace server.Migrations
                         new
                         {
                             CategoryId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(4416),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(5047),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "woman",
                             Status = 1,
@@ -154,7 +154,7 @@ namespace server.Migrations
                         new
                         {
                             CategoryId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(5852),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(7350),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "men",
                             Status = 1,
@@ -163,7 +163,7 @@ namespace server.Migrations
                         new
                         {
                             CategoryId = 3L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(5916),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(7469),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "child",
                             Status = 1,
@@ -172,7 +172,7 @@ namespace server.Migrations
                         new
                         {
                             CategoryId = 4L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(5918),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(7472),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "outlet",
                             Status = 1,
@@ -217,7 +217,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(1432),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(6715),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "denim",
                             Status = 1,
@@ -227,7 +227,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3443),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9566),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "shirts",
                             Status = 1,
@@ -237,7 +237,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 3L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3479),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9636),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "t-shirts",
                             Status = 1,
@@ -247,7 +247,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 4L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3481),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9639),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "basics",
                             Status = 1,
@@ -257,7 +257,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 5L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3483),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9641),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "sweatshirts",
                             Status = 1,
@@ -267,7 +267,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 6L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3484),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9643),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "coat-jacket",
                             Status = 1,
@@ -277,7 +277,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 7L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3485),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9645),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "pants",
                             Status = 1,
@@ -287,7 +287,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 8L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3486),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9647),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "knitwear-sweaters",
                             Status = 1,
@@ -297,7 +297,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 9L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3487),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9649),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "bags-wallets",
                             Status = 1,
@@ -307,7 +307,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 10L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3489),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9651),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "parfume",
                             Status = 1,
@@ -317,7 +317,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 11L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3490),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9653),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "belt",
                             Status = 1,
@@ -327,7 +327,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 12L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3491),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9654),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "scarf-beret",
                             Status = 1,
@@ -337,7 +337,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 13L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3492),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9656),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "hats",
                             Status = 1,
@@ -347,7 +347,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 14L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3493),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9658),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "boxer",
                             Status = 1,
@@ -357,7 +357,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 15L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3495),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9659),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "socks",
                             Status = 1,
@@ -367,7 +367,7 @@ namespace server.Migrations
                         new
                         {
                             ChildCategoryId = 16L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(3496),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(9661),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "boxer",
                             Status = 1,
@@ -413,7 +413,7 @@ namespace server.Migrations
                         new
                         {
                             SubCategoryId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(7673),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(553),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ParentCategoryId = 2L,
                             Slug = "clothes",
@@ -423,7 +423,7 @@ namespace server.Migrations
                         new
                         {
                             SubCategoryId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(9610),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 218, DateTimeKind.Utc).AddTicks(3547),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ParentCategoryId = 2L,
                             Slug = "accessories",
@@ -531,11 +531,11 @@ namespace server.Migrations
                     b.Property<long?>("ProductPropertyId")
                         .HasColumnType("bigint");
 
-                    b.Property<float>("TotalPrice")
-                        .HasColumnType("real");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
-                    b.Property<float>("UnitPrice")
-                        .HasColumnType("real");
+                    b.Property<double>("UnitPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("OrderDetailId");
 
@@ -584,18 +584,18 @@ namespace server.Migrations
                         {
                             ProductId = 1L,
                             ChildCategoryId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(5315),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "",
+                            DateCreated = new DateTime(2020, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateModified = new DateTime(2020, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Normal Bel, Skinny",
                             Status = 0,
-                            Title = "Jake Black Berlin Jean Pants"
+                            Title = "JAKE"
                         },
                         new
                         {
                             ProductId = 2L,
                             ChildCategoryId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(7641),
-                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2020, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateModified = new DateTime(2020, 4, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "",
                             Status = 0,
                             Title = "James Black Pro Gölge Mavi Jean Pantolon"
@@ -635,27 +635,36 @@ namespace server.Migrations
                         new
                         {
                             ImageId = 1L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(6968),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 221, DateTimeKind.Utc).AddTicks(805),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductPropertyId = 1L,
                             Title = "",
-                            Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc7/hb1/9320590868510/0042228720_image_1.jpg_Default-ZoomProductImage"
+                            Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hb4/h73/9320593162270/0042230560_image_1.jpg_Default-ZoomProductImage"
                         },
                         new
                         {
                             ImageId = 2L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(8919),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 221, DateTimeKind.Utc).AddTicks(3300),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ProductPropertyId = 2L,
+                            Title = "",
+                            Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h40/h17/9320592539678/0042230560_image_2.jpg_Default-MainProductImage"
+                        },
+                        new
+                        {
+                            ImageId = 3L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 221, DateTimeKind.Utc).AddTicks(3355),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProductPropertyId = 3L,
                             Title = "",
                             Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h8c/h21/9206049013790/0042223856_image_1.jpg_Default-ZoomProductImage"
                         },
                         new
                         {
-                            ImageId = 3L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(8954),
+                            ImageId = 4L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 221, DateTimeKind.Utc).AddTicks(3358),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ProductPropertyId = 3L,
+                            ProductPropertyId = 4L,
                             Title = "",
                             Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc1/h6d/9313162428446/0042226971_image_1.jpg_Default-ZoomProductImage"
                         });
@@ -678,8 +687,8 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<long?>("ProductColorId")
                         .HasColumnType("bigint");
@@ -726,28 +735,63 @@ namespace server.Migrations
                         new
                         {
                             ProductPropertyId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 430, DateTimeKind.Utc).AddTicks(9852),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(1039),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
-New Items
-Regular Rise
-Skinny
-Slim Leg
-98% Cotton 2% Elastan
-Black",
-                            Price = 0f,
-                            ProductColorId = 2L,
-                            ProductHeightId = 2L,
+                            Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection",
+                            Price = 269.99000000000001,
+                            ProductColorId = 7L,
+                            ProductHeightId = 32L,
                             ProductId = 1L,
-                            ProductSizeId = 2L,
                             ProductThemeId = 1L,
                             StockCount = 0,
-                            Title = "Jake Black Berlin Jean Pants"
+                            Title = "Jake Vintage Ink Mavi Jet Black Jean Pants"
+                        },
+                        new
+                        {
+                            ProductPropertyId = 11L,
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(6840),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection",
+                            Price = 269.99000000000001,
+                            ProductColorId = 7L,
+                            ProductHeightId = 34L,
+                            ProductId = 1L,
+                            ProductThemeId = 1L,
+                            StockCount = 0,
+                            Title = "Jake Vintage Ink Mavi Jet Black Jean Pants"
+                        },
+                        new
+                        {
+                            ProductPropertyId = 12L,
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(7046),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection",
+                            Price = 169.99000000000001,
+                            ProductColorId = 5L,
+                            ProductHeightId = 32L,
+                            ProductId = 1L,
+                            ProductThemeId = 1L,
+                            StockCount = 0,
+                            Title = "Jake Vintage Ink Mavi Jet Black Jean Pants"
+                        },
+                        new
+                        {
+                            ProductPropertyId = 13L,
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(7051),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection",
+                            Price = 169.99000000000001,
+                            ProductColorId = 5L,
+                            ProductHeightId = 34L,
+                            ProductId = 1L,
+                            ProductThemeId = 1L,
+                            StockCount = 0,
+                            Title = "Jake Vintage Ink Mavi Jet Black Jean Pants"
                         },
                         new
                         {
                             ProductPropertyId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(4352),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(7054),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
 New Items
@@ -756,9 +800,9 @@ Skinny
 Slim Leg
 98% Cotton 2% Elastan
 Black",
-                            Price = 0f,
+                            Price = 269.99000000000001,
                             ProductColorId = 3L,
-                            ProductHeightId = 2L,
+                            ProductHeightId = 32L,
                             ProductId = 1L,
                             ProductSizeId = 2L,
                             ProductThemeId = 1L,
@@ -768,7 +812,7 @@ Black",
                         new
                         {
                             ProductPropertyId = 3L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(4441),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(7951),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
 New Items
@@ -777,9 +821,9 @@ Skinny
 Slim Leg
 98% Cotton 2% Elastan
 Black",
-                            Price = 0f,
+                            Price = 269.99000000000001,
                             ProductColorId = 4L,
-                            ProductHeightId = 2L,
+                            ProductHeightId = 32L,
                             ProductId = 1L,
                             ProductSizeId = 2L,
                             ProductThemeId = 1L,
@@ -789,7 +833,7 @@ Black",
                         new
                         {
                             ProductPropertyId = 4L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(4454),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(7984),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
 New Items
@@ -798,9 +842,9 @@ Skinny
 Slim Leg
 98% Cotton 2% Elastan
 Black",
-                            Price = 0f,
+                            Price = 269.99000000000001,
                             ProductColorId = 2L,
-                            ProductHeightId = 5L,
+                            ProductHeightId = 32L,
                             ProductId = 2L,
                             ProductSizeId = 1L,
                             ProductThemeId = 2L,
@@ -811,7 +855,7 @@ Black",
                         new
                         {
                             ProductPropertyId = 5L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(5027),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(8818),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
 New Items
@@ -820,9 +864,9 @@ Skinny
 Slim Leg
 98% Cotton 2% Elastan
 Black",
-                            Price = 0f,
+                            Price = 269.99000000000001,
                             ProductColorId = 2L,
-                            ProductHeightId = 5L,
+                            ProductHeightId = 32L,
                             ProductId = 2L,
                             ProductSizeId = 1L,
                             ProductThemeId = 2L,
@@ -833,7 +877,7 @@ Black",
                         new
                         {
                             ProductPropertyId = 6L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 431, DateTimeKind.Utc).AddTicks(5061),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 220, DateTimeKind.Utc).AddTicks(8845),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = @"Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection
 New Items
@@ -842,9 +886,9 @@ Skinny
 Slim Leg
 98% Cotton 2% Elastan
 Black",
-                            Price = 0f,
+                            Price = 269.99000000000001,
                             ProductColorId = 1L,
-                            ProductHeightId = 2L,
+                            ProductHeightId = 32L,
                             ProductId = 1L,
                             ProductSizeId = 2L,
                             ProductThemeId = 2L,
@@ -885,7 +929,7 @@ Black",
                         new
                         {
                             ProductColorId = 1L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(6292),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(3007),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "Blue",
@@ -894,47 +938,56 @@ Black",
                         new
                         {
                             ProductColorId = 2L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(8870),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6486),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "Red",
-                            Url = "site.com/blue"
+                            Url = "site.com/red"
                         },
                         new
                         {
                             ProductColorId = 3L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(8955),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6632),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "Green",
-                            Url = "site.com/blue"
+                            Url = "site.com/green"
                         },
                         new
                         {
                             ProductColorId = 4L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(8979),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6667),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "Black",
-                            Url = "site.com/blue"
+                            Url = "site.com/black"
                         },
                         new
                         {
                             ProductColorId = 5L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(9001),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6700),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "White",
-                            Url = "site.com/blue"
+                            Url = "site.com/white"
                         },
                         new
                         {
                             ProductColorId = 6L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 427, DateTimeKind.Utc).AddTicks(9023),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6727),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 1,
                             Tag = "Purple",
-                            Url = "site.com/blue"
+                            Url = "site.com/purple"
+                        },
+                        new
+                        {
+                            ProductColorId = 7L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 214, DateTimeKind.Utc).AddTicks(6759),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = 1,
+                            Tag = "Navy",
+                            Url = "site.com/navy"
                         });
                 });
 
@@ -965,40 +1018,40 @@ Black",
                     b.HasData(
                         new
                         {
-                            ProductHeightId = 1L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(1082),
+                            ProductHeightId = 28L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(1748),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "28"
                         },
                         new
                         {
-                            ProductHeightId = 2L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(2101),
+                            ProductHeightId = 30L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(3799),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "30"
                         },
                         new
                         {
-                            ProductHeightId = 3L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(2145),
+                            ProductHeightId = 32L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(3889),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "32"
                         },
                         new
                         {
-                            ProductHeightId = 4L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(2167),
+                            ProductHeightId = 34L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(3920),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "34"
                         },
                         new
                         {
-                            ProductHeightId = 5L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(2188),
+                            ProductHeightId = 36L,
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(3949),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "36"
@@ -1033,7 +1086,7 @@ Black",
                         new
                         {
                             ProductSizeId = 1L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(4227),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(7679),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "XXS"
@@ -1041,7 +1094,7 @@ Black",
                         new
                         {
                             ProductSizeId = 2L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5270),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9249),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "XS"
@@ -1049,7 +1102,7 @@ Black",
                         new
                         {
                             ProductSizeId = 3L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5316),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9337),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "S"
@@ -1057,7 +1110,7 @@ Black",
                         new
                         {
                             ProductSizeId = 4L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5338),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9374),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "M"
@@ -1065,7 +1118,7 @@ Black",
                         new
                         {
                             ProductSizeId = 5L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5360),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9405),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "L"
@@ -1073,7 +1126,7 @@ Black",
                         new
                         {
                             ProductSizeId = 6L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5382),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9438),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "XL"
@@ -1081,7 +1134,7 @@ Black",
                         new
                         {
                             ProductSizeId = 7L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5404),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9496),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "XXL"
@@ -1089,7 +1142,7 @@ Black",
                         new
                         {
                             ProductSizeId = 8L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5463),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9524),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "XXXL"
@@ -1097,7 +1150,7 @@ Black",
                         new
                         {
                             ProductSizeId = 9L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5482),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9552),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "24"
@@ -1105,7 +1158,7 @@ Black",
                         new
                         {
                             ProductSizeId = 10L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5501),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9579),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "26"
@@ -1113,7 +1166,7 @@ Black",
                         new
                         {
                             ProductSizeId = 11L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5519),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9608),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "28"
@@ -1121,7 +1174,7 @@ Black",
                         new
                         {
                             ProductSizeId = 12L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5537),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9636),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "30"
@@ -1129,7 +1182,7 @@ Black",
                         new
                         {
                             ProductSizeId = 13L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5555),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9668),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "32"
@@ -1137,7 +1190,7 @@ Black",
                         new
                         {
                             ProductSizeId = 14L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5573),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9697),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "34"
@@ -1145,7 +1198,7 @@ Black",
                         new
                         {
                             ProductSizeId = 15L,
-                            DateAdded = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(5591),
+                            DateAdded = new DateTime(2020, 4, 11, 1, 7, 57, 215, DateTimeKind.Utc).AddTicks(9727),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 0,
                             Title = "36"
@@ -1184,7 +1237,7 @@ Black",
                         new
                         {
                             ProductThemeId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(7636),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(3499),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "new-items",
                             Status = 0,
@@ -1193,7 +1246,7 @@ Black",
                         new
                         {
                             ProductThemeId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(9197),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(5866),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "season-sale",
                             Status = 0,
@@ -1202,7 +1255,7 @@ Black",
                         new
                         {
                             ProductThemeId = 3L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(9309),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(5920),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "mavi-logo",
                             Status = 0,
@@ -1211,7 +1264,7 @@ Black",
                         new
                         {
                             ProductThemeId = 4L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(9311),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(5923),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "smart",
                             Status = 0,
@@ -1220,7 +1273,7 @@ Black",
                         new
                         {
                             ProductThemeId = 5L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 428, DateTimeKind.Utc).AddTicks(9312),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(5925),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "mavi-black",
                             Status = 0,
@@ -1259,7 +1312,7 @@ Black",
                         new
                         {
                             ProductTrotterId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(1011),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 216, DateTimeKind.Utc).AddTicks(9252),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "long-sleeve",
                             Status = 0,
@@ -1268,11 +1321,20 @@ Black",
                         new
                         {
                             ProductTrotterId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 429, DateTimeKind.Utc).AddTicks(2689),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(1509),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Slug = "short-sleeve",
                             Status = 0,
                             Title = "Short Sleeve"
+                        },
+                        new
+                        {
+                            ProductTrotterId = 3L,
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 57, 217, DateTimeKind.Utc).AddTicks(1568),
+                            DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Slug = "slim-leg",
+                            Status = 0,
+                            Title = "Slim Leg"
                         });
                 });
 
@@ -1323,24 +1385,24 @@ Black",
                         new
                         {
                             UserId = 1L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 13, DateTimeKind.Utc).AddTicks(389),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 56, 733, DateTimeKind.Utc).AddTicks(2050),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "info@ogun.me",
                             Firstname = "Ogün",
                             Lastname = "Baysal",
-                            Password = "$2a$11$mP8NQbwmXTpJk3VDLdeRO.CbCRw339ZyO7Uq9WhY.Iv2kDMujauCS",
+                            Password = "$2a$11$tr/fJBKLvncmwHvTbSl30.kh7GkU5yzzkfKu9KbxwYdvJx67wlYEy",
                             Role = "Admin",
                             Username = "Admin"
                         },
                         new
                         {
                             UserId = 2L,
-                            DateCreated = new DateTime(2020, 4, 3, 11, 37, 59, 230, DateTimeKind.Utc).AddTicks(7019),
+                            DateCreated = new DateTime(2020, 4, 11, 1, 7, 56, 980, DateTimeKind.Utc).AddTicks(8139),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "ozgur.durak@yandex.com",
                             Firstname = "Özgür",
                             Lastname = "Durak",
-                            Password = "$2a$11$xUmF7uJcEVnPs4w/VMkGxujSgFNZ9NyGLgYKYiCCPbjWj5tHjBJ1u",
+                            Password = "$2a$11$SzSRLdcoEd268w8eidVo4OVnSxT.3ml9t/3k2kqTJjhWub3c7qYiK",
                             Role = "User",
                             Username = "ozgurdurak"
                         });

@@ -8,7 +8,7 @@
     xmlns:productlisting="clr-namespace:client.Components.ProductListing"
     mc:Ignorable="d"
     d:DesignHeight="450"
-    d:DesignWidth="800">
+    d:DesignWidth="1280">
 
     <Grid Margin="10,0,0,0">
         <Grid.RowDefinitions>
@@ -18,30 +18,36 @@
         <Border Grid.Row="0" BorderThickness="2,0,2,0" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="240" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0" BorderThickness="0,0,2,2" />
-            <StackPanel x:Name="ProductListingPanel" Grid.Column="1">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel x:Name="ProductOrderPanel" Grid.Row="0" />
-                    <StackPanel Grid.Row="1">
-                        <ItemsControl ItemsSource="{Binding Products}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="5,10,0,0">
-                                        <productlisting:ProductListingItem ProductId="{Binding ProductId}"  />
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </StackPanel>
-                </Grid>
-            </StackPanel>
+            <Border Grid.Column="0" BorderThickness="0,0,2,2">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Filters"></TextBlock>
+            </Border>
+            <ScrollViewer Grid.Column="1">
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" x:Name="ProductListingPanel" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel x:Name="ProductOrderPanel" HorizontalAlignment="Center" Grid.Row="0" >
+                            <TextBlock Text="Order"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1">
+                            <ItemsControl ItemsSource="{Binding Products}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="5,10,0,0">
+                                            <productlisting:ProductListingItem ProductId="{Binding ProductId}"  />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
     </Grid>
 

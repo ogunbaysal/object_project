@@ -71,7 +71,7 @@ namespace server.Controllers
             }
         }
         [HttpGet("properties/{id}")]
-        public async Task<ActionResult<ICollection<Result>>> GetProductProperties(long id)
+        public async Task<ActionResult<Result>> GetProductProperties(long id)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace server.Controllers
                     Count = properties.Count(),
                     Data = properties
                 };
-                return Ok(properties);
+                return Ok(result);
             }catch(AppException ex)
             {
                 var result = new Result()

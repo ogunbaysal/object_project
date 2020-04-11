@@ -66,18 +66,19 @@ namespace server.Helpers
                 );
             modelBuilder.Entity<ProductColor>().HasData(
                 new ProductColor() { ProductColorId = 1 , Tag = "Blue", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 2 , Tag = "Red", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 3 , Tag = "Green", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 4 , Tag = "Black", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 5 , Tag = "White", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 6 , Tag = "Purple", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" }
+                new ProductColor() { ProductColorId = 2 , Tag = "Red", Status = PropertyStatus.ACTIVE, Url = "site.com/red" },
+                new ProductColor() { ProductColorId = 3 , Tag = "Green", Status = PropertyStatus.ACTIVE, Url = "site.com/green" },
+                new ProductColor() { ProductColorId = 4 , Tag = "Black", Status = PropertyStatus.ACTIVE, Url = "site.com/black" },
+                new ProductColor() { ProductColorId = 5 , Tag = "White", Status = PropertyStatus.ACTIVE, Url = "site.com/white" },
+                new ProductColor() { ProductColorId = 6 , Tag = "Purple", Status = PropertyStatus.ACTIVE, Url = "site.com/purple" },
+                new ProductColor() { ProductColorId = 7 , Tag = "Navy", Status = PropertyStatus.ACTIVE, Url = "site.com/navy" }
                 );
             modelBuilder.Entity<ProductHeight>().HasData(
-                new ProductHeight() { ProductHeightId = 1 , Title = "28"},
-                new ProductHeight() { ProductHeightId = 2 , Title = "30"},
-                new ProductHeight() { ProductHeightId = 3 , Title = "32"},
-                new ProductHeight() { ProductHeightId = 4 , Title = "34"},
-                new ProductHeight() { ProductHeightId = 5 , Title = "36"}
+                new ProductHeight() { ProductHeightId = 28 , Title = "28"},
+                new ProductHeight() { ProductHeightId = 30 , Title = "30"},
+                new ProductHeight() { ProductHeightId = 32 , Title = "32"},
+                new ProductHeight() { ProductHeightId = 34 , Title = "34"},
+                new ProductHeight() { ProductHeightId = 36 , Title = "36"}
                 );
             modelBuilder.Entity<ProductSize>().HasData(
                 new ProductSize() { ProductSizeId = 1 ,  Title = "XXS" },
@@ -105,7 +106,9 @@ namespace server.Helpers
                 );
             modelBuilder.Entity<ProductTrotter>().HasData(
                 new ProductTrotter() { ProductTrotterId = 1, Title = "Long Sleeve", Slug = "long-sleeve" },
-                new ProductTrotter() { ProductTrotterId = 2, Title = "Short Sleeve", Slug = "short-sleeve" }
+                new ProductTrotter() { ProductTrotterId = 2, Title = "Short Sleeve", Slug = "short-sleeve" },
+                new ProductTrotter() { ProductTrotterId = 3, Title = "Slim Leg", Slug = "slim-leg" }
+
                 );
             modelBuilder.Entity<Category>().HasData(
                 new Category() { CategoryId = 1, Title = "Women", Slug = "woman"},
@@ -136,22 +139,27 @@ namespace server.Helpers
                 new ChildCategory() { ChildCategoryId = 16, SubCategoryId = 2, Title = "Boxer", Slug = "boxer" }
                 );
             modelBuilder.Entity<Product>().HasData(
-                new Product() { ProductId = 1, ChildCategoryId = 1, Title = "Jake Black Berlin Jean Pants", Description = "", DateCreated = new DateTime(2020, 4, 14), DateModified = new DateTime(2020, 4, 14) },
+                new Product() { ProductId = 1, ChildCategoryId = 1, Title = "JAKE", Description = "Normal Bel, Skinny", DateCreated = new DateTime(2020, 4, 14), DateModified = new DateTime(2020, 4, 14) },
                 new Product() { ProductId = 2, ChildCategoryId = 2 , Title = "James Black Pro Gölge Mavi Jean Pantolon", Description = "", DateCreated = new DateTime(2020, 4, 14), DateModified = new DateTime(2020, 4, 14) }
                 );
-            modelBuilder.Entity<ProductProperty>().HasData(
-                new ProductProperty() { ProductPropertyId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 2, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertyId = 2, ProductId = 1, ProductThemeId = 1, ProductColorId = 3, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertyId = 3, ProductId = 1, ProductThemeId = 1, ProductColorId = 4, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertyId = 4, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 1, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertyId = 5, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 5, ProductSizeId = 1, ProductTrotterId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
-                new ProductProperty() { ProductPropertyId = 6, ProductId = 1, ProductThemeId = 2, ProductColorId = 1, ProductHeightId = 2, ProductSizeId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" }
+            modelBuilder.Entity<ProductProperty>()
+                .HasData(
+                new ProductProperty() { ProductPropertyId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 7, ProductHeightId = 32, Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 11, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 7, ProductHeightId = 34,  Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 12, ProductId = 1, ProductThemeId = 1, ProductColorId = 5, ProductHeightId = 32, Price = 169.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 13, ProductId = 1, ProductThemeId = 1, ProductColorId = 5, ProductHeightId = 34, Price = 169.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 2, ProductId = 1, ProductThemeId = 1, ProductColorId = 3, ProductHeightId = 32, ProductSizeId = 2, Price = 269.99, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 3, ProductId = 1, ProductThemeId = 1, ProductColorId = 4, ProductHeightId = 32, ProductSizeId = 2, Price = 269.99, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 4, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 32, ProductSizeId = 1, Price = 269.99, ProductTrotterId = 1, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 5, ProductId = 2, ProductThemeId = 2, ProductColorId = 2, ProductHeightId = 32, ProductSizeId = 1, Price = 269.99, ProductTrotterId = 2, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },
+                new ProductProperty() { ProductPropertyId = 6, ProductId = 1, ProductThemeId = 2, ProductColorId = 1, ProductHeightId = 32, ProductSizeId = 2, Price = 269.99, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" }
 
                 );
             modelBuilder.Entity<ProductImage>().HasData(
-                new ProductImage() { ImageId = 1, ProductPropertyId = 1, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc7/hb1/9320590868510/0042228720_image_1.jpg_Default-ZoomProductImage" },
-                new ProductImage() { ImageId = 2, ProductPropertyId = 2, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h8c/h21/9206049013790/0042223856_image_1.jpg_Default-ZoomProductImage" },
-                new ProductImage() { ImageId = 3, ProductPropertyId = 3, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc1/h6d/9313162428446/0042226971_image_1.jpg_Default-ZoomProductImage" }
+                new ProductImage() { ImageId = 1, ProductPropertyId = 1, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hb4/h73/9320593162270/0042230560_image_1.jpg_Default-ZoomProductImage" },
+                new ProductImage() { ImageId = 2, ProductPropertyId = 2, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h40/h17/9320592539678/0042230560_image_2.jpg_Default-MainProductImage" },
+                new ProductImage() { ImageId = 3, ProductPropertyId = 3, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h8c/h21/9206049013790/0042223856_image_1.jpg_Default-ZoomProductImage" },
+                new ProductImage() { ImageId = 4, ProductPropertyId = 4, Title = "", Url = "https://sky-static.mavi.com/sys-master/maviTrImages/hc1/h6d/9313162428446/0042226971_image_1.jpg_Default-ZoomProductImage" }
                 ); ;
         }
     }

@@ -62,6 +62,7 @@ namespace client
             var label = (Label)sender;
             var view = new CategoryView((long)label.Tag);
             view.ChildCategoryClicked += View_ChildCategoryClicked;
+            CategoryViewCanvas.HorizontalAlignment = HorizontalAlignment.Center;
             CategoryViewCanvas.Height = view.Height;
             CategoryViewCanvas.Width = view.Width;
             CategoryViewCanvas.Visibility = Visibility.Visible;
@@ -73,13 +74,15 @@ namespace client
         private void View_ChildCategoryClicked(object sender, Components.CategoryView.EventArgs e)
         {
             long clickedChildCategoryId = e.ChildCategoryId;
-            var content = new ProductListing(new ProductFilter() { ChildCategoryId = 2 });
+            var content = new ProductListing(new ProductFilter() { ChildCategoryId = clickedChildCategoryId });
             this.setPage(content);
         }
 
         protected void setPage(UserControl content)
         {
             pageContent.Children.Clear();
+            pageContent.Width = content.Width;
+            content.Height = pageContent.Height;
             pageContent.Children.Add(content);
         }
 

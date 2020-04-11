@@ -11,7 +11,7 @@
     <StackPanel
         x:Name="RootPanel"
         Height="Auto"
-        Background="White" HorizontalAlignment="Center">
+        Background="WhiteSmoke" HorizontalAlignment="Center">
         <ItemsControl ItemsSource="{Binding SubCategories}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
