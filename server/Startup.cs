@@ -96,6 +96,7 @@ namespace server
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IProductPropertyService, ProductPropertyService>();
             services.AddScoped<IOrderService, OrderService>();
 
             //repositories

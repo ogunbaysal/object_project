@@ -1,7 +1,6 @@
 ﻿using client.Api;
 using client.Model;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
@@ -13,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using client.Helpers;
 
 namespace client.Components.CategoryView
 {
@@ -25,9 +25,10 @@ namespace client.Components.CategoryView
     /// </summary>
     public partial class CategoryView : UserControl
     {
+
         private CategoryAPI _categoryApi;
 
-        public event EventHandler<EventArgs> ChildCategoryClicked;
+        public event System.EventHandler<EventArgs> ChildCategoryClicked;
         public List<SubCategory> SubCategories { get; set; }
         public int MainGridColumnCount = 0;
 
@@ -75,7 +76,7 @@ namespace client.Components.CategoryView
             {
                 ChildCategoryId = id
             };
-            Dispatcher.BeginInvoke(new EventHandler<EventArgs>(ChildCategoryClicked), this, args);
+            Dispatcher.BeginInvoke(new System.EventHandler<EventArgs>(ChildCategoryClicked), this, args);
         }
     }
 }

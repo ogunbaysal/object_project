@@ -14,6 +14,7 @@ namespace client.Helpers
             BitmapImage bi = new BitmapImage();
 
             bi.BeginInit();
+            if (value == null) return null;
             bi.UriSource = new Uri((string)value, UriKind.RelativeOrAbsolute);
             bi.EndInit();
 

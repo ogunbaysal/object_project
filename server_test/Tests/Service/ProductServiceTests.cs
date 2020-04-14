@@ -1,46 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AutoFixture;
+using AutoFixture.Xunit2;
+using FakeItEasy;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
+using server.Controllers;
+using server.Models;
 using server.Models.Product;
 using server.Repositories.Interface;
 using server.Services;
+using server_test.Core;
+using Sieve.Models;
 using Xunit;
 
 namespace server_test.Tests.Service
 {
     public class ProductServiceTests
     {
-        private Mock<IRepository<Product>> _productRepo;
-        private Mock<IRepository<ProductProperty>> _productPropertyRepo;
-        private Mock<IRepository<ProductImage>> _productImageRepo;
+        private readonly IProductService _productService;
+        private readonly Fixture _fixture;
 
-        private IProductService _productService;
+        private readonly ProductController _sut;
         public ProductServiceTests()
         {
-            SetupMocks();
-            _productService = new ProductService(_productRepo.Object, _productPropertyRepo.Object, _productImageRepo.Object);
+            _productService = A.Fake<IProductService>();
+            _sut = new ProductController(_productService);
+            _fixture = new Fixture();
         }
 
-        private void SetupMocks()
+        [Fact]
+        public async Task Get_All_Products_Success()
         {
-            _productRepo = new Mock<IRepository<Product>>();
-            _productRepo.Setup(x => x.FindByIdAsync(It.IsAny<long>()))
-                .ReturnsAsync(new Product()
-                {
-                    ProductId =  1,
-                    ChildCategoryId = 2,
-                    DateCreated = DateTime.Today,
-                    DateModified = DateTime.Today,
-                    Title = "Hello new Product",
-                    Description = "It is a description",
-                    Status = ProductStatus.ACTIVE
-                });
-            
+            var products = _fixture.CreateMany<Product>(3).ToList();
+
+            A.CallTo(() => _productService.GetAllAsync(new SieveModel())).Returns(products);
+
+            var result = await _sut.GetAll(new SieveModel());
+
+            A.CallTo(() => _productService.GetAllAsync(new SieveModel())).MustHaveHappenedOnceExactly();
+            Assert.IsType<ActionResult<Result>>(result);
+            Assert.NotNull(result.Value.Data);
+            Assert.Equal(products.Count, result.Value.Count);
 
         }
-
         
     }
 }

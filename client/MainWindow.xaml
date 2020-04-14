@@ -12,7 +12,7 @@
     Height="720"
     mc:Ignorable="d"
     MouseLeftButtonDown="Window_MouseLeftButtonDown"
-    Title="MainWindow">
+    Title="MainWindow" WindowStartupLocation="CenterScreen">
 
     <StackPanel x:Name="MainPanel">
         <Grid>

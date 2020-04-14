@@ -39,7 +39,7 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Margin="5,10,0,0">
-                                            <productlisting:ProductListingItem ProductId="{Binding ProductId}"  />
+                                            <productlisting:ProductListingItem ProductId="{Binding ProductId}" />
                                         </StackPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>

@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using client.Helpers;
+using client.Utils;
+using client.View.ProductDetail;
 
 namespace client.Components.ProductListing
 {
@@ -22,6 +25,7 @@ namespace client.Components.ProductListing
     /// </summary>
     public partial class ProductListingItem : UserControl
     {
+
         public static readonly DependencyProperty ProductIdProperty = DependencyProperty.Register("ProductId", typeof(long), typeof(UserControl), new FrameworkPropertyMetadata(null));
         public long ProductId
         {
@@ -30,9 +34,7 @@ namespace client.Components.ProductListing
         }
         public Product Product { get; set; }
         public List<ProductImage> ProductImages { get; set; }
-
         public String Price { get; set; }
-
         private ProductAPI _productAPI;
         private ProductProperty cheaperProductProperty;
         public ProductListingItem()
@@ -61,13 +63,7 @@ namespace client.Components.ProductListing
             if (cheaperProductProperty == null)
                 throw new Exception("No Product Property");
             var data = _productAPI.GetPropertyImages(cheaperProductProperty.ProductPropertyId);
-            var list = new List<ProductImage>();
-            var arr = ((JArray)data.Data).Children();
-            foreach (var i in arr)
-            {
-                var item = i.ToObject<ProductImage>();
-                list.Add(item);
-            }
+            var list = JArrayToList.Convert<ProductImage>(data.Data);
             return list;
         }
         private Product getProduct(long Id)
@@ -79,13 +75,7 @@ namespace client.Components.ProductListing
         private ProductProperty getCheaperProductProperty(long productId)
         {
             var data = _productAPI.GetProperties(productId);
-            var list = new List<ProductProperty>();
-            var arr = ((JArray)data.Data).Children();
-            foreach (var i in arr)
-            {
-                var item = i.ToObject<ProductProperty>();
-                list.Add(item);
-            }
+            var list = JArrayToList.Convert<ProductProperty>(data.Data);
             list.Sort((x, y) => x.Price.CompareTo(y.Price));
             return list[0];
         }
@@ -94,6 +84,18 @@ namespace client.Components.ProductListing
             if (cheaperProductProperty == null)
                 cheaperProductProperty = getCheaperProductProperty(productId);
             return cheaperProductProperty.Price.ToString() + " TL";
+        }
+
+        private void onItemClicked(object sender, MouseButtonEventArgs e)
+        {
+            var item = (FrameworkElement) sender;
+
+            var id = (long) item.Tag;
+            var ProductDetailView = new ProductDetail(id);
+
+            var router = Router.GetInstance();
+            router.GoView(ProductDetailView);
+
         }
     }
 }

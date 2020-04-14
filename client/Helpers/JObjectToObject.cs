@@ -5,18 +5,12 @@ using System.Text;
 
 namespace client.Helpers
 {
-    class JObjectToObject
+    public class JObjectToObject
     {
-        public static List<T> ConvertList<T>(object list)
+        public static T Convert<T>(object data)
         {
-            var tmp = new List<T>();
-            var arr = ((JArray)list).Children();
-            foreach(var one in arr)
-            {
-                var item = one.ToObject<T>();
-                tmp.Add(item);
-            }
-            return tmp;
+            var item = ((JObject)data).ToObject<T>();
+            return item;
         }
     }
 }

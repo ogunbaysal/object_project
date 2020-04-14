@@ -33,6 +33,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\server\server.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\mavi_logo.png" />
   </ItemGroup>
 

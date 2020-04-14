@@ -16,7 +16,8 @@ namespace server.Models.ProductProperty
         public long ProductSizeId { get; set; }
         [Required(ErrorMessage = "Title is required")]
         public string Title { get; set; }
-        public PropertyStatus Status { get; set; }
+
+        public PropertyStatus Status { get; set; } = PropertyStatus.ACTIVE;
         public DateTime DateAdded { get; set; } = DateTime.UtcNow;
         public DateTime DateModified { get; set; }
 

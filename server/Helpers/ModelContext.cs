@@ -65,13 +65,12 @@ namespace server.Helpers
                 new User() { UserId = 2, Username = "ozgurdurak", Password = BCrypt.Net.BCrypt.HashPassword("demo1234"), Email = "ozgur.durak@yandex.com", Firstname = "Özgür", Lastname = "Durak", Role = "User"}
                 );
             modelBuilder.Entity<ProductColor>().HasData(
-                new ProductColor() { ProductColorId = 1 , Tag = "Blue", Status = PropertyStatus.ACTIVE, Url = "site.com/blue" },
-                new ProductColor() { ProductColorId = 2 , Tag = "Red", Status = PropertyStatus.ACTIVE, Url = "site.com/red" },
-                new ProductColor() { ProductColorId = 3 , Tag = "Green", Status = PropertyStatus.ACTIVE, Url = "site.com/green" },
-                new ProductColor() { ProductColorId = 4 , Tag = "Black", Status = PropertyStatus.ACTIVE, Url = "site.com/black" },
-                new ProductColor() { ProductColorId = 5 , Tag = "White", Status = PropertyStatus.ACTIVE, Url = "site.com/white" },
-                new ProductColor() { ProductColorId = 6 , Tag = "Purple", Status = PropertyStatus.ACTIVE, Url = "site.com/purple" },
-                new ProductColor() { ProductColorId = 7 , Tag = "Navy", Status = PropertyStatus.ACTIVE, Url = "site.com/navy" }
+                new ProductColor() { ProductColorId = 1 , Tag = "Blue", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h47/had/9285296128030" },
+                new ProductColor() { ProductColorId = 2 , Tag = "Gray", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h6c/h49/9320807202846" },
+                new ProductColor() { ProductColorId = 3 , Tag = "Navy Blue", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h27/hb3/9312738770974" },
+                new ProductColor() { ProductColorId = 4 , Tag = "Black", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/ha4/h52/9285004820510/0042216291_material.jpg_Default-MaterialImage" },
+                new ProductColor() { ProductColorId = 5 , Tag = "White", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h7f/h7e/9206388457502/0042223856_material.jpg_Default-MaterialImage" },
+                new ProductColor() { ProductColorId = 6 , Tag = "Blue", Status = PropertyStatus.ACTIVE, Url = "https://sky-static.mavi.com/sys-master/maviTrImages/h80/h66/9315728654366/0042229883_material.jpg_Default-MaterialImage" }
                 );
             modelBuilder.Entity<ProductHeight>().HasData(
                 new ProductHeight() { ProductHeightId = 28 , Title = "28"},
@@ -144,8 +143,8 @@ namespace server.Helpers
                 );
             modelBuilder.Entity<ProductProperty>()
                 .HasData(
-                new ProductProperty() { ProductPropertyId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 7, ProductHeightId = 32, Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
-                new ProductProperty() { ProductPropertyId = 11, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 7, ProductHeightId = 34,  Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 1, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 3, ProductHeightId = 32, Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
+                new ProductProperty() { ProductPropertyId = 11, ProductId = 1, ProductThemeId = 1 ,ProductColorId = 3, ProductHeightId = 34,  Price = 269.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
                 new ProductProperty() { ProductPropertyId = 12, ProductId = 1, ProductThemeId = 1, ProductColorId = 5, ProductHeightId = 32, Price = 169.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
                 new ProductProperty() { ProductPropertyId = 13, ProductId = 1, ProductThemeId = 1, ProductColorId = 5, ProductHeightId = 34, Price = 169.99, Title = "Jake Vintage Ink Mavi Jet Black Jean Pants", Description = "Discover Jake Vintage Ink Mavi Jet Black Jean Pants from Mavi's Men' Collection" },
                 new ProductProperty() { ProductPropertyId = 2, ProductId = 1, ProductThemeId = 1, ProductColorId = 3, ProductHeightId = 32, ProductSizeId = 2, Price = 269.99, Title = "Jake Black Berlin Jean Pants", Description = "Discover Jake Black Berlin Jean Pants from Mavi's Men' Collection\nNew Items\nRegular Rise\nSkinny\nSlim Leg\n98% Cotton 2% Elastan\nBlack" },

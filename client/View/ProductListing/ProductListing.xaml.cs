@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using client.Helpers;
 
 namespace client.View.ProductListing
 {
@@ -21,11 +22,14 @@ namespace client.View.ProductListing
     /// </summary>
     public partial class ProductListing : UserControl
     {
+        public ChangeRouteEvent ChangeRouteEvent { get; set; }
+
         private ProductFilter _filter;
         private readonly ProductAPI _productAPI;
         public List<Product> Products { get; set; }
         public ProductListing()
         {
+            this.ChangeRouteEvent = new ChangeRouteEvent();
             InitializeComponent();
             this._productAPI = new ProductAPI();
             _filter = new ProductFilter();
@@ -33,6 +37,7 @@ namespace client.View.ProductListing
         }
         public ProductListing(ProductFilter filter)
         {
+            this.ChangeRouteEvent = new ChangeRouteEvent();
             InitializeComponent();
             this._productAPI = new ProductAPI();
             _filter = filter;

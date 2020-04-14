@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using client.Utils;
 
 namespace client
 {
@@ -28,11 +30,13 @@ namespace client
     /// </summary>
     public partial class MainWindow : Window
     {
+        
         public UserControl ChildContent;
         CategoryAPI _categoryApi;
         public MainWindow()
         {
             InitializeComponent();
+            Router.Initialize(this);
             _categoryApi = new CategoryAPI();
             setCategories();
             this.ChildContent = new Home();
@@ -43,7 +47,7 @@ namespace client
             var result = _categoryApi.GetCategories();
             if(result.Count > 0)
             {
-                var list = JObjectToObject.ConvertList<Category>(result.Data);
+                var list = JArrayToList.Convert<Category>(result.Data);
                 MainCategoriesPanel.Children.Clear();
                 foreach(var item in list)
                 {
@@ -56,7 +60,6 @@ namespace client
                 }
             }
         }
-
         private void MainCategoryOnClicked(object sender, MouseButtonEventArgs e)
         {
             var label = (Label)sender;
@@ -70,22 +73,23 @@ namespace client
             CategoryViewCanvas.Children.Add(view);
 
         }
-
         private void View_ChildCategoryClicked(object sender, Components.CategoryView.EventArgs e)
         {
             long clickedChildCategoryId = e.ChildCategoryId;
             var content = new ProductListing(new ProductFilter() { ChildCategoryId = clickedChildCategoryId });
-            this.setPage(content);
+            this.SetPage(content);
         }
-
-        protected void setPage(UserControl content)
+        public void SetPage(UserControl content)
         {
             pageContent.Children.Clear();
             pageContent.Width = content.Width;
             content.Height = pageContent.Height;
             pageContent.Children.Add(content);
         }
-
+        private void RouteEvent_OnRouteChanged(object src, Helpers.EventArgs args)
+        {
+            this.SetPage(args.NewControl);
+        }
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if(!CategoryViewCanvas.IsMouseOver && CategoryViewCanvas.Visibility == Visibility.Visible)
