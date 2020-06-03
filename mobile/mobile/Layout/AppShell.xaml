@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+            xmlns:components="clr-namespace:mobile.Components"
+            xmlns:views="clr-namespace:mobile.Views"
+            Title="Mavi"
+             x:Class="mobile.Layout.AppShell">
+    <Shell.Resources>
+        
+    </Shell.Resources>
+    <Shell.FlyoutHeader>
+        <components:FlyoutHeader/>
+    </Shell.FlyoutHeader>
+    <FlyoutItem>
+        <Tab Route="home" Icon="home_icon.png" Title="Anasayfa">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}"/>
+        </Tab>
+        <Tab Route="discover" Icon="favorite_icon.png" Title="Keşfet">
+            <ShellContent ContentTemplate="{DataTemplate views:DiscoveryPage}"/>
+        </Tab>
+        <Tab Route="profile" Icon="profile_icon.png" Title="Profilim">
+            <ShellContent ContentTemplate="{DataTemplate views:ProfilePage}"/>
+        </Tab>
+        <Tab Route="basket" Icon="basket_icon.png" Title="Sepetim">
+            <ShellContent ContentTemplate="{DataTemplate views:BasketPage}"/>
+        </Tab>
+    </FlyoutItem>
+
+
+    <Shell.MenuItemTemplate>
+        <DataTemplate>
+            <Grid>
+                <Label Margin="10" Text="{Binding Text}"
+                       Style="{StaticResource Menu_BlackLabel}"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.MenuItemTemplate>
+
+</Shell>

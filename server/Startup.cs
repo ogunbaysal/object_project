@@ -52,7 +52,7 @@ namespace server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ModelContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:apidb"]));
+            services.AddDbContext<ModelContext>(opts => opts.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers()
                 .AddNewtonsoftJson(

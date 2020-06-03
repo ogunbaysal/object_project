@@ -89,7 +89,7 @@ namespace server.Controllers
             var user = _mapper.Map<User>(model);
             try
             {
-                await _userService.Create(user, model.Password);
+                var response = await _userService.Create(user, model.Password);
                 var result = new Result
                 { 
                     Message = "Successfuly Registered. Please Log in."

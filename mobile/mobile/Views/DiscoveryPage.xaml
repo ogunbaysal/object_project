@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="mobile.Views.DiscoveryPage"
+             xmlns:flv="clr-namespace:DLToolkit.Forms.Controls;assembly=DLToolkit.Forms.Controls.FlowListView"
+             
+             xmlns:local="clr-namespace:mobile;assembly=mobile"
+             BindingContext="{x:Static local:App.DiscoveryViewModel }"
+             Title="DiscoveryPage">
+
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <flv:FlowListView FlowItemTappedCommand="{Binding NavigateToProductCommand}" FlowColumnCount="2" SeparatorVisibility="Default" HasUnevenRows="True" FlowItemsSource="{Binding ProductList}">
+                <flv:FlowListView.FlowColumnTemplate>
+                    <DataTemplate>
+                        <flv:FlowGridCell >
+                            <Grid Margin="10,0,10,12" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="80" />
+                                </Grid.RowDefinitions>
+                                <Image
+                                Grid.Row="0"
+                                WidthRequest="250"
+                                HeightRequest="250"
+                                Source="{Binding ImageUrl }" />
+                                <StackLayout Grid.Row="1" Orientation="Vertical">
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Title }"></Label>
+                                    <Label HorizontalTextAlignment="Center" Text="{Binding Price}"></Label>
+                                </StackLayout>
+                            </Grid>
+                        </flv:FlowGridCell>
+                       
+                    </DataTemplate>
+                </flv:FlowListView.FlowColumnTemplate>
+            </flv:FlowListView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

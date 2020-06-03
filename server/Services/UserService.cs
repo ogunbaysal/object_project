@@ -33,6 +33,7 @@ namespace server.Services
         {
             _context = context;
             _appSettings = appSettings.Value;
+            _userRepository = userRepository;
         }
         public User Authenticate(string username, string password)
         {

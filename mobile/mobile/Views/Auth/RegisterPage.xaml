@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:local="clr-namespace:mobile"
+             x:Class="mobile.Views.Auth.RegisterPage"
+             BindingContext="{x:Static local:App.RegisterViewModel}"
+             Title="Kayıt Ol"
+             >
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Giriş Yap" Command="{Binding GoToLoginCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Padding="50">
+            <Label Text="Adınız" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Firstname}" Placeholder ="Adınız" HorizontalOptions="FillAndExpand">
+            </Entry>
+            <Label Text="Soyadınız" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Lastname}" Placeholder ="Soyadınız" HorizontalOptions="FillAndExpand">
+            </Entry>
+            <Label Text="Email Adresiniz" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Email}" Placeholder ="Email Adresiniz" HorizontalOptions="FillAndExpand">
+            </Entry>
+            <Label Text="User name" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Username}" Placeholder ="Kullanıcı Adınız" HorizontalOptions="FillAndExpand">
+            </Entry>
+
+            <Label Text="Password" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Password}" Placeholder ="Şifreniz" IsPassword="True" HorizontalOptions="FillAndExpand">
+
+            </Entry>
+
+            <Button Text ="Kayıt Ol" Command="{Binding RegisterCommand}" HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

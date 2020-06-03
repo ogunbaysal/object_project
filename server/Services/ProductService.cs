@@ -21,6 +21,9 @@ namespace server.Services
         Task AddProductPropertyAsync(ProductProperty item);
         Task<IEnumerable<ProductProperty>> GetProductPropertiesAsync(long ProductId);
         Task<IEnumerable<ProductImage>> GetPropertyImageByPropertyIdAsync(long id);
+        Task<IEnumerable<Product>> GetByCategoryId(long id);
+        Task<string> GetOneProductImage(long id);
+        Task<double> GetProductPrice(long id);
     }
     public class ProductService : IProductService
     {
@@ -70,6 +73,49 @@ namespace server.Services
             var image = await _productImageRepository.ListAsync(x=>x.ProductPropertyId == id);
             if (image != null) return image;
             throw new AppException("No Image Found");
+        }
+        public async Task<IEnumerable<Product>> GetByCategoryId(long id)
+        {
+            var Products = await _productRepository.ListAsync(x => x.ChildCategory.SubCategory.ParentCategory.CategoryId == id);
+            return Products.ToList();
+        }
+        public async Task<string> GetOneProductImage(long id)
+        {
+            var product = await _productRepository.FindByIdAsync(id);
+            string image = null;
+            int i = 0;
+            var propertyList = (await _productPropertyRepository.ListAsync(x => x.ProductId == product.ProductId)).ToList();
+
+            while (image == null)
+            {
+                var property = propertyList[0];
+                if(property != null)
+                {
+                    var imageList = await _productImageRepository.ListAsync(x => x.ProductPropertyId == property.ProductPropertyId);
+                    if (imageList.First() != null) image = imageList.First().Url;
+                    i++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return image;
+        }
+        public async Task<double> GetProductPrice(long id)
+        {
+            var product = await _productRepository.FindByIdAsync(id);
+            double price = 999999;
+            int i = 0;
+            var propertyList = (await _productPropertyRepository.ListAsync(x => x.ProductId == product.ProductId)).ToList();
+            foreach(var item in propertyList)
+            {
+                if(item.Price < price)
+                {
+                    price = item.Price;
+                }
+            }
+            return price == 999999 ? 0 : price;
         }
     }
 }

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             BindingContext="{x:Static local:App.ProductDetailViewModel}"
+             xmlns:local="clr-namespace:mobile"
+             mc:Ignorable="d"
+             x:Class="mobile.Views.Product.ProductDetailPage">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" Padding="50">
+                <Image Aspect="AspectFit"
+             HorizontalOptions="FillAndExpand"
+             Source="{Binding Product.ImageUrl}" />
+                <Label Text="{Binding Product.Title}"
+        HorizontalOptions="Center"
+        Font="Bold,Large">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color"
+             iOS="Accent"
+             WinPhone="Accent"
+             Android="#afcca6" />
+                    </Label.TextColor>
+                </Label>
+
+
+                <Label Text="{Binding Product.Price, StringFormat='{0:c}'}"
+        HorizontalOptions="Start"
+        Font="Bold,Medium" />
+                <Button Text="Sepete Ekle" Command="{Binding AddBasket}"></Button>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

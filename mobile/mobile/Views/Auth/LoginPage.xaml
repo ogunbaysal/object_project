@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:mobile"
+             mc:Ignorable="d"
+             BindingContext="{x:Static local:App.LoginViewModel}"
+             x:Class="mobile.Views.Auth.LoginPage"
+             Title="Giriş Yap"
+             NavigationPage.HasBackButton="False"
+             >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Kayıt Ol" Command="{Binding GoToRegisterCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="FillAndExpand" Padding="50">
+
+
+            <Label Text="Kullanıcı Adınız" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Username}" Placeholder ="Kullanıcı Adınız" HorizontalOptions="FillAndExpand">
+            </Entry>
+
+            <Label Text="Şifreniz" HorizontalOptions="Start" />
+            <Entry Text ="{Binding Password}" Placeholder ="Şifreniz" IsPassword="True" HorizontalOptions="FillAndExpand">
+                    
+            </Entry>
+
+            <Button Text ="Giriş Yap" Command="{Binding LoginCommand}" HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:mobile.Components"
+             mc:Ignorable="d"
+             x:Class="mobile.Views.HomePage"
+             xmlns:local="clr-namespace:mobile;assembly=mobile"
+             BindingContext="{x:Static local:App.HomeViewModel }"
+             Title="Mavi">
+    <ContentPage.Content>
+        <StackLayout>
+            <components:SearchBarComponent/>
+            <StackLayout  AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1" AbsoluteLayout.LayoutFlags="PositionProportional">
+                <Image Source="https://sky-static.mavi.com/sys-master/maviTrImages/h6b/h26/9339004485662/MOBIL_01.jpg" HorizontalOptions="CenterAndExpand" Aspect="Fill" />
+            </StackLayout>
+            <FlexLayout Direction="Column" AlignItems="Center" JustifyContent="SpaceEvenly" Margin="50,5,50,0">
+                <Frame CornerRadius="20">
+                    <ListView
+                    x:Name="CategoryView" 
+                    ItemsSource="{Binding Categories}"
+                    VerticalOptions="FillAndExpand"
+                    >
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Button Text="{Binding Title}" Padding="5" BackgroundColor="#bdc3c7" FontSize="16" BorderColor="White" BorderWidth="1"></Button>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+                </Frame>
+            </FlexLayout>
+            
+        
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
